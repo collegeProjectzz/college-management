@@ -1,4 +1,5 @@
 import "./App.css";
+import Footer from "./components/footer/Footer";
 import Landing from "./components/landlingPage/Landing";
 import Navbar from "./components/Navbar";
 import Signin from "./components/sign-in/Signin";
@@ -8,8 +9,7 @@ import SignupTr from "./components/sign-up/SignupTr";
 function App() {
   return (
     <>
-      <Navbar />
-      <Signin />
+      <Landing />
     </>
   );
 }
