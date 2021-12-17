@@ -1,4 +1,5 @@
 import React from "react";
+import Dropdown from "../Dropdown";
 import Footer from "../footer/Footer";
 import Navbar from "../Navbar";
 
@@ -19,11 +20,16 @@ const Teacherdash = () => {
             Welcome Teacher
           </h1>
         </div>
-        <input
-          type="text"
-          className="mb-5 p-2  rounded-lg w-68 drop-shadow-xl"
-          placeholder="Search for Students"
-        />
+        <div className="w-full flex justify-center items-center">
+          <div>
+            <input
+              type="text"
+              className="mb-5 p-2  rounded-lg w-68 drop-shadow-xl mr-2"
+              placeholder="Search for Students"
+            />
+            <Dropdown />
+          </div>
+        </div>
         <div className="flex  w-4/5 justify-center flex-wrap bg-white">
           <table className="border-2 w-full">
             <tr className="border-2">
