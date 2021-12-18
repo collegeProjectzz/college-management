@@ -1,4 +1,5 @@
 import "./App.css";
+import Studentdash from "./components/dashboard/Studentdash";
 import Teacherdash from "./components/dashboard/Teacherdash";
 import Footer from "./components/footer/Footer";
 import Landing from "./components/landlingPage/Landing";
@@ -10,7 +11,7 @@ import SignupTr from "./components/sign-up/SignupTr";
 function App() {
   return (
     <>
-      <Teacherdash />
+      <Studentdash />
     </>
   );
 }
