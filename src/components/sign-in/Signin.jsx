@@ -1,8 +1,11 @@
 import React from "react";
+import Footer from "../footer/Footer";
+import Navbar from "../Navbar";
 
 const Signin = () => {
   return (
     <>
+      <Navbar />
       <div className="min-h-full flex w-full h-[80vh] items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
         <div className="max-w-md w-full space-y-8">
           <div>
@@ -91,6 +94,7 @@ const Signin = () => {
           </form>
         </div>
       </div>
+      <Footer />
     </>
   );
 };

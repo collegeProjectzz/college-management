@@ -1,6 +1,7 @@
 import React from "react";
 import Footer from "../footer/Footer";
 import Navbar from "../Navbar";
+import { Link } from "react-router-dom";
 
 const Landing = () => {
   return (
@@ -21,14 +22,14 @@ const Landing = () => {
           <div className="flex flex-col  justify-center items-center mt-4">
             <div className="flex">
               <button className="bg-gray-800 p-2  text-white  text-lg w-fit rounded-lg">
-                Sign in as student
+                <Link to="/signup/student">Sign up as Student</Link>
               </button>
               <button className="bg-white p-2 w-fit  ml-5 rounded-lg text-lg">
-                Sign in as Teacher
+                <Link to="/signup/teacher">Sign up as Teacher</Link>
               </button>
             </div>
             <span className="text-white text-base mt-5">
-              New to Classroom? Register
+              Already registered? <Link to="/signin">Sign in</Link>
             </span>
           </div>
         </div>
