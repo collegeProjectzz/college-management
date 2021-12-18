@@ -1,9 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import Dropdown from "../Dropdown";
 import Footer from "../footer/Footer";
+import Modalpop from "../Modalpop";
 import Navbar from "../Navbar";
 
 const Teacherdash = () => {
+  const [isOpen, setIsOpen] = useState(false);
+  console.log(isOpen);
   return (
     <>
       <Navbar />
@@ -24,7 +27,7 @@ const Teacherdash = () => {
           <div>
             <input
               type="text"
-              className="mb-5 p-2  rounded-lg w-68 drop-shadow-xl mr-2"
+              className="mb-5 p-2  rounded-lg w-68 drop-shadow-xl mr-2 focus:outline-none"
               placeholder="Search for Students"
             />
             <Dropdown />
@@ -39,7 +42,13 @@ const Teacherdash = () => {
               <th className="border-2 p-2">IT1</th>
               <th className="border-2 p-2">IT2</th>
             </tr>
-            <tr className="hover:cursor-pointer">
+            <tr
+              className="hover:cursor-pointer"
+              onClick={() => {
+                setIsOpen(!isOpen);
+              }}
+            >
+              {isOpen && <Modalpop setmode={setIsOpen} />}
               <td className="border-2 p-2">Alroy fernandes</td>
               <td className="border-2 p-2">191106005</td>
               <td className="border-2 p-2">Alroy@yahoo.in</td>
