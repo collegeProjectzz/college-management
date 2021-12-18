@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Footer from "../footer/Footer";
 import Navbar from "../Navbar";
 
-function Signup() {
+function SignupTr() {
   const [userData, setUserData] = useState({
     name: "",
     email: "",
@@ -18,7 +18,15 @@ function Signup() {
   return (
     <>
       <Navbar />
-      <div className="min-h-full flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+      <div
+        style={{
+          backgroundImage: `url("/signin.png")`,
+          backgroundPosition: "center",
+          backgroundRepeat: "no-repeat",
+          backgroundSize: "1000px 700px",
+        }}
+        className="min-h-full  h-[100vh] flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8"
+      >
         <div className="max-w-md w-full space-y-8">
           <div>
             <img
@@ -173,4 +181,4 @@ function Signup() {
   );
 }
 
-export default Signup;
+export default SignupTr;

@@ -18,7 +18,15 @@ function Signup() {
   return (
     <>
       <Navbar />
-      <div className="min-h-full flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+      <div
+        style={{
+          backgroundImage: `url("/stud.png")`,
+          backgroundPosition: "center",
+          backgroundRepeat: "no-repeat",
+          backgroundSize: "1000px 700px",
+        }}
+        className="min-h-full  h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8"
+      >
         <div className="max-w-md w-full space-y-8">
           <div>
             <img

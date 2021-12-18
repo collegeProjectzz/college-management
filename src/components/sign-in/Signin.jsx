@@ -6,7 +6,14 @@ const Signin = () => {
   return (
     <>
       <Navbar />
-      <div className="min-h-full flex w-full h-[80vh] items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+      <div
+        style={{
+          backgroundImage: `url("./work.png")`,
+          backgroundPosition: "center",
+          backgroundRepeat: "no-repeat",
+        }}
+        className="min-h-full flex w-full h-[80vh] items-center justify-center py-12 px-4 sm:px-6 lg:px-8"
+      >
         <div className="max-w-md w-full space-y-8">
           <div>
             <img
