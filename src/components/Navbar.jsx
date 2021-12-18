@@ -2,6 +2,7 @@
 import { Fragment } from "react";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { BellIcon, MenuIcon, XIcon } from "@heroicons/react/outline";
+import { Link } from "react-router-dom";
 
 const navigation = [
   { name: "Home", href: "/welcome", current: true },
@@ -138,7 +139,7 @@ export default function Navbar() {
                       px-3 py-2 rounded-md text-sm font-medium"
                       aria-current="page"
                     >
-                      Sign in
+                      <Link to="/signin">Sign-In</Link>
                     </a>
                     <Menu as="div" className="ml-3 relative">
                       <div>
@@ -147,7 +148,7 @@ export default function Navbar() {
                             className="text-gray-300 hover:bg-gray-700 hover:text-white
                           px-3 py-2 rounded-md text-sm font-medium"
                           >
-                            Sign-up
+                            Sign-Up
                           </span>
                         </Menu.Button>
                       </div>
