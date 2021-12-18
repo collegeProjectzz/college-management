@@ -25,7 +25,7 @@ const Landing = () => {
                 <Link to="/signup/student">Sign up as Student</Link>
               </button>
               <button className="bg-white p-2 w-fit  ml-5 rounded-lg text-lg">
-                <Link to="/signup/teacher">Sign up as Teacher</Link>
+                <Link to="/signup/teacher">Sign up as Faculty</Link>
               </button>
             </div>
             <span className="text-white text-base mt-5">
