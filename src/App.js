@@ -1,5 +1,8 @@
 import "./App.css";
+import { Routes, Route, Link } from "react-router-dom";
+
 import Studentdash from "./components/dashboard/Studentdash";
+
 import Teacherdash from "./components/dashboard/Teacherdash";
 import Footer from "./components/footer/Footer";
 import Landing from "./components/landlingPage/Landing";
@@ -11,7 +14,9 @@ import SignupTr from "./components/sign-up/SignupTr";
 function App() {
   return (
     <>
-      <Studentdash />
+      <Routes>
+        <Route path="/welcome" element={<Landing />} />
+      </Routes>
     </>
   );
 }
