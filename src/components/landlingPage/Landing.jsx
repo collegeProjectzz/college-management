@@ -29,8 +29,16 @@ const Landing = () => {
               </button>
             </div>
             <span className="text-white text-base mt-5">
-              Already registered? <Link to="/signin">Sign in</Link>
+              Already registered?{" "}
             </span>
+            <div class="justify-center">
+              <span className="text-white text-base mt-2 p-2">
+                <Link to="/signin/student">Sign in as Student</Link>
+              </span>
+              <span className="text-white text-base mt-2 p-2">
+                <Link to="/signin/faculty">Sign in as Faculty</Link>
+              </span>
+            </div>
           </div>
         </div>
       </div>
