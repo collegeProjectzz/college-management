@@ -41,7 +41,7 @@ function Signup() {
         if (res.status === 200) {
           console.log("satuse is 200");
           setState(false);
-          navigate("/signin");
+          navigate("/signin/student");
         }
       })
       .catch((err) => {

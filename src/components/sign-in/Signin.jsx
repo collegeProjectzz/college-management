@@ -9,6 +9,8 @@ const Signin = () => {
   const { who, id } = useParams();
   const isStudent = who === "student" ? true : false;
 
+  console.log(isStudent);
+
   const { formData, handleInputChange } = useForm({
     email: "",
     password: "",
@@ -28,7 +30,7 @@ const Signin = () => {
 
   const signinStudent = async () => {
     await fetch(
-      "http://localhost/college-backend/api/faculty/registerFaculty.php",
+      "http://localhost/college-backend/api/student/loginStudent.php",
       {
         method: "POST",
         headers: {
@@ -37,9 +39,8 @@ const Signin = () => {
         body: JSON.stringify(StudentBody),
       }
     )
-      .then((res) => {
-        console.log(res);
-      })
+      .then((res) => res.json())
+      .then((data) => console.log(data))
       .catch((err) => {
         console.log("error mz");
         console.log(err);
@@ -48,7 +49,7 @@ const Signin = () => {
 
   const signinFaculty = async () => {
     await fetch(
-      "http://localhost/college-backend/api/faculty/registerFaculty.php",
+      "http://localhost/college-backend/api/faculty/loginFaculty.php",
       {
         method: "POST",
         headers: {
@@ -93,7 +94,7 @@ const Signin = () => {
               Sign in to your account
             </h2>
           </div>
-          <form className="mt-8 space-y-6" action="#" method="POST">
+          <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
             <div className="rounded-md shadow-sm -space-y-px">
               <div>
                 <label htmlFor="email-address" className="sr-only">
