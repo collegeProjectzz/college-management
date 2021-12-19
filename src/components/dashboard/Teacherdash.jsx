@@ -6,7 +6,7 @@ import Navbar from "../Navbar";
 
 const Teacherdash = () => {
   const [isOpen, setIsOpen] = useState(false);
-  console.log(isOpen);
+  // console.log(isOpen);
   return (
     <>
       <Navbar />
