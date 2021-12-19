@@ -1,15 +1,23 @@
-import React from "react";
+import React, { useState } from "react";
 import Footer from "../footer/Footer";
 import Navbar from "../Navbar";
 import { useParams, useNavigate } from "react-router-dom";
 import useForm from "../../hooks/useForm";
+import useSessionStorage from "../../hooks/useSessionStorage";
 
 const Signin = () => {
   const navigate = useNavigate();
-  const { who, id } = useParams();
+  const [state, setState] = useState(false);
+  const [error, setError] = useState("");
+  const { who } = useParams();
   const isStudent = who === "student" ? true : false;
-
-  console.log(isStudent);
+  const value = isStudent ? "student" : "faculty";
+  const revValue = !isStudent ? "student" : "faculty";
+  const [storeLoginData, setStoreLoginData] = useSessionStorage(
+    value,
+    "",
+    revValue
+  );
 
   const { formData, handleInputChange } = useForm({
     email: "",
@@ -29,6 +37,7 @@ const Signin = () => {
   };
 
   const signinStudent = async () => {
+    setState(true);
     await fetch(
       "http://localhost/college-backend/api/student/loginStudent.php",
       {
@@ -40,14 +49,23 @@ const Signin = () => {
       }
     )
       .then((res) => res.json())
-      .then((data) => console.log(data))
+      .then((data) => {
+        setState(false);
+        const { message } = data;
+        if (message) {
+          setError(message);
+        } else {
+          setStoreLoginData(data);
+          navigate("/dashboard/student");
+        }
+      })
       .catch((err) => {
-        console.log("error mz");
-        console.log(err);
+        setState(false);
       });
   };
 
   const signinFaculty = async () => {
+    setState(true);
     await fetch(
       "http://localhost/college-backend/api/faculty/loginFaculty.php",
       {
@@ -58,12 +76,20 @@ const Signin = () => {
         body: JSON.stringify(FacultyBody),
       }
     )
-      .then((res) => {
-        console.log(res);
+      .then((res) => res.json())
+      .then((data) => {
+        setState(false);
+        const { message } = data;
+
+        if (message) {
+          setError(message);
+        } else {
+          setStoreLoginData(data);
+          navigate("/dashboard/teacher");
+        }
       })
       .catch((err) => {
-        console.log("error mz");
-        console.log(err);
+        setState(false);
       });
   };
 
@@ -96,6 +122,14 @@ const Signin = () => {
           </div>
           <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
             <div className="rounded-md shadow-sm -space-y-px">
+              {error && (
+                <div
+                  class=" flex justify-center p-4 mb-4 text-sm text-yellow-700 bg-yellow-100 rounded-lg dark:bg-yellow-200 dark:text-yellow-800"
+                  role="alert"
+                >
+                  {error}
+                </div>
+              )}
               <div>
                 <label htmlFor="email-address" className="sr-only">
                   Email address
@@ -137,7 +171,24 @@ const Signin = () => {
                 onSubmit={handleSubmit}
                 className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
               >
-                Sign in
+                {!state ? (
+                  "Sign in"
+                ) : (
+                  <svg
+                    class="w-6 h-6 mx-auto animate-spin"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
+                    />
+                  </svg>
+                )}
               </button>
             </div>
           </form>
