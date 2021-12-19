@@ -77,7 +77,7 @@ function Signup() {
                   }}
                 />
               </div>
-              <div>
+              {/* <div>
                 <label htmlFor="email-address" className="sr-only">
                   Roll no.
                 </label>
@@ -94,7 +94,7 @@ function Signup() {
                   className="appearance-none rounded relative block w-full px-3 py-2 border mt-2 border-gray-300 placeholder-gray-500 text-gray-900 rounded focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                   placeholder="Roll Number"
                 />
-              </div>
+              </div> */}
               <div>
                 <label htmlFor="email-address" className="sr-only">
                   Phone number
@@ -133,7 +133,7 @@ function Signup() {
               </div>
             </div>
 
-            <div className="flex items-center justify-between">
+            {/* <div className="flex items-center justify-between">
               <div className="flex items-center">
                 <input
                   id="remember-me"
@@ -157,7 +157,7 @@ function Signup() {
                   Forgot your password?
                 </a>
               </div>
-            </div>
+            </div> */}
 
             <div>
               <button

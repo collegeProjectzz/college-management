@@ -1,5 +1,5 @@
 import "./App.css";
-import { Routes, Route, Link } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 
 import Studentdash from "./components/dashboard/Studentdash";
 
@@ -16,7 +16,7 @@ function App() {
         <Route path="/welcome" element={<Landing />} />
         <Route path="/signup/student" element={<Signup />} />
         <Route path="/signup/teacher" element={<SignupTr />} />
-        <Route path="/signin" element={<Signin />} />
+        <Route path="/signin/" element={<Signin />} />
         <Route path="/dashboard/student" element={<Studentdash />} />
         <Route path="/dashboard/teacher" element={<Teacherdash />} />
       </Routes>
