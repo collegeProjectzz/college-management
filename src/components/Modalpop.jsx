@@ -1,8 +1,14 @@
 import { Fragment, useRef, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { ExclamationIcon } from "@heroicons/react/outline";
+import useForm from "../hooks/useForm";
 
 export default function Modalpop({ isOpen, setmode, data }) {
+  const { formData, handleInputChange } = useForm({
+    first: "",
+    second: "",
+  });
+  const { first, second } = formData;
   const {
     cId,
     cName,
@@ -17,11 +23,25 @@ export default function Modalpop({ isOpen, setmode, data }) {
     rollNo,
   } = data;
   const [open, setOpen] = useState(true);
-  const [marks, setMarks] = useState({
-    first: "",
-    second: "",
-  });
   const cancelButtonRef = useRef(null);
+
+  const updateItMarks = async () => {
+    await fetch("http://localhost/college-backend/api/exam/updateITmarks.php", {
+      method: "PUT",
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        rollNo,
+        cId,
+        it1: first,
+        it2: second
+      })
+    })
+      .then(res => res.json())
+      .then(data => console.log(data))
+      .catch(err => console.log(err));
+  };
 
   return (
     <Transition.Root show={open} as={Fragment}>
@@ -83,23 +103,21 @@ export default function Modalpop({ isOpen, setmode, data }) {
                       <div className="flex mt-3">
                         <input
                           type="text"
-                          value={it1}
+                          id="first"
+                          name="first"
+                          value={first}
                           className="focus:outline-none bg-gray-100 rounded-md p-1"
                           placeholder="Enter IT1 marks"
-                          onChange={(e) => {
-                            marks.first = e.target.value;
-                            setMarks(marks);
-                          }}
+                          onChange={handleInputChange}
                         />
                         <input
                           type="text"
-                          value={it2}
+                          value={second}
+                          id="second"
+                          name="second"
                           className="focus:outline-none  bg-gray-100 rounded-md p-1 ml-5"
                           placeholder="Enter IT2 marks"
-                          onChange={(e) => {
-                            marks.second = e.target.value;
-                            setMarks(marks);
-                          }}
+                          onChange={handleInputChange}
                         />
                       </div>
                     </div>
@@ -111,6 +129,7 @@ export default function Modalpop({ isOpen, setmode, data }) {
                   type="button"
                   className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-gray-800 text-base font-medium text-white hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-offset-2  sm:ml-3 sm:w-auto sm:text-sm"
                   onClick={() => {
+                    updateItMarks();
                     setOpen(false);
                     setmode(false);
                   }}
