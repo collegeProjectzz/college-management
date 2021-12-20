@@ -1,26 +1,33 @@
+import { data } from "autoprefixer";
 import { useState, useEffect, useContext } from "react";
 import { UserContext } from "../../context/userContext";
 const Studentdash = () => {
   const { userData } = useContext(UserContext);
-  const { dNo, email, name, phone, rollNo } = userData;
+  console.log("userData", userData);
+  const { rollNo } = userData;
   const [state, setState] = useState();
+  const [loading, setLoading] = useState(false);
   const fetchStudentData = async () => {
+    setLoading(true);
     fetch(
       "http://localhost/college-backend/api/exam/getStudentMarks.php?rollNo=" +
-        userData.rollNo
+      // userData.rollNo
+      11
     )
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
+        setLoading(false);
         setState(data);
-        console.log(state);
       })
-      .catch((e) => console.log(e));
+      .catch((e) => setLoading(false));
   };
+
   useEffect(() => {
     fetchStudentData();
-  }, [userData.rollNo]);
-  // }, []);
+  }, []);
+
+
+
   return (
     <>
       <div
@@ -47,16 +54,21 @@ const Studentdash = () => {
               <th className="border-2 p-2">IT1</th>
               <th className="border-2 p-2">IT2</th>
             </tr>
-            {/* {state.map((m) => (
-              <tr className="hover:cursor-pointer">
-                <td className="border-2 p-2">{name}</td>
-                <td className="border-2 p-2">{rollNo}</td>
-                <td className="border-2 p-2">{email}</td>
-                <th className="border-2 p-2">{m.cId}</th>
-                <th className="border-2 p-2">{m.it1}</th>
-                <th className="border-2 p-2">{m.it2}</th>
+            {!state?.data ?
+              <tr>
+                <td>-</td>
               </tr>
-            ))} */}
+              :
+              state?.data?.map(m => (
+                <tr className="hover:cursor-pointer" key={m.rollNo}>
+                  <td className="border-2 p-2">{m.name}</td>
+                  <td className="border-2 p-2">{m.rollNo}</td>
+                  <td className="border-2 p-2">{m.email}</td>
+                  <th className="border-2 p-2">{m.cId}</th>
+                  <th className="border-2 p-2">{m.it1}</th>
+                  <th className="border-2 p-2">{m.it2}</th>
+                </tr>
+              ))}
           </table>
         </div>
       </div>

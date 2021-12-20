@@ -16,12 +16,13 @@ import Footer from "./components/footer/Footer";
 
 function App() {
   // const navigate = useNavigate();
-  // const { login, setUser, userData } = useContext(UserContext);
+  // const {login} = useContext(UserContext);
+  // const user = sessionStorage.getItem("user");
+  // const userData = sessionStorage.getItem(user);
   // useEffect(() => {
-  //   const user = sessionStorage.getItem("user");
-  //   const userData = sessionStorage.getItem(user);
-  //   login(userData, user);
-  //   setUser(user);
+  //   if(user && userData){
+  //     login(userData, user);
+  //   }
   // }, []);
 
   // useEffect(() => {
