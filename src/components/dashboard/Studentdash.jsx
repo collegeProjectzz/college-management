@@ -1,11 +1,28 @@
-import React from "react";
-import Footer from "../footer/Footer";
-import Navbar from "../Navbar";
-
+import { useState, useEffect, useContext } from "react";
+import { UserContext } from "../../context/userContext";
 const Studentdash = () => {
+  const { userData } = useContext(UserContext);
+  const { dNo, email, name, phone, rollNo } = userData;
+  const [state, setState] = useState();
+  const fetchStudentData = async () => {
+    fetch(
+      "http://localhost/college-backend/api/exam/getStudentMarks.php?rollNo=" +
+        userData.rollNo
+    )
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        setState(data);
+        console.log(state);
+      })
+      .catch((e) => console.log(e));
+  };
+  useEffect(() => {
+    fetchStudentData();
+  }, [userData.rollNo]);
+  // }, []);
   return (
     <>
-      <Navbar />
       <div
         className="h-screen flex flex-col justify-center  items-center"
         style={{
@@ -26,24 +43,23 @@ const Studentdash = () => {
               <th className="border-2 p-2">Name</th>
               <th className="border-2 p-2">Roll_number</th>
               <th className="border-2 p-2">Email</th>
-              <th className="border-2 p-2">Subject</th>
+              <th className="border-2 p-2">Course Id</th>
               <th className="border-2 p-2">IT1</th>
-
               <th className="border-2 p-2">IT2</th>
             </tr>
-            <tr className="hover:cursor-pointer">
-              <td className="border-2 p-2">Alroy fernandes</td>
-              <td className="border-2 p-2">191106005</td>
-              <td className="border-2 p-2">Alroy@yahoo.in</td>
-              <th className="border-2 p-2">DBMS</th>
-
-              <th className="border-2 p-2">19</th>
-              <th className="border-2 p-2">10</th>
-            </tr>
+            {/* {state.map((m) => (
+              <tr className="hover:cursor-pointer">
+                <td className="border-2 p-2">{name}</td>
+                <td className="border-2 p-2">{rollNo}</td>
+                <td className="border-2 p-2">{email}</td>
+                <th className="border-2 p-2">{m.cId}</th>
+                <th className="border-2 p-2">{m.it1}</th>
+                <th className="border-2 p-2">{m.it2}</th>
+              </tr>
+            ))} */}
           </table>
         </div>
       </div>
-      <Footer />
     </>
   );
 };

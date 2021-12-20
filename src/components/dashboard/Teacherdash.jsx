@@ -1,15 +1,35 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Dropdown from "../Dropdown";
-import Footer from "../footer/Footer";
 import Modalpop from "../Modalpop";
-import Navbar from "../Navbar";
 
 const Teacherdash = () => {
+  const [state, setState] = useState();
+  const [loading, setLoading] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   // console.log(isOpen);
+
+  const fetchdata = async () => {
+    setLoading(true);
+    await fetch(
+      "http://localhost/college-backend/api/exam/getAllStudentMarks.php"
+    )
+      .then((res) => res.json())
+      .then((data) => {
+        setLoading(false);
+        setState(data);
+      })
+      .catch((err) => {
+        setLoading(false);
+        console.log(err);
+      });
+  };
+
+  useEffect(() => {
+    fetchdata();
+  }, []);
+
   return (
     <>
-      <Navbar />
       <div
         className="h-screen flex flex-col justify-center  items-center"
         style={{
@@ -33,32 +53,35 @@ const Teacherdash = () => {
             <Dropdown />
           </div>
         </div>
-        <div className="flex  w-4/5 justify-center flex-wrap bg-white">
-          <table className="border-2 w-full">
-            <tr className="border-2">
-              <th className="border-2 p-2">Name</th>
-              <th className="border-2 p-2">Roll_number</th>
-              <th className="border-2 p-2">Email</th>
-              <th className="border-2 p-2">IT1</th>
-              <th className="border-2 p-2">IT2</th>
-            </tr>
-            <tr
-              className="hover:cursor-pointer"
-              onClick={() => {
-                setIsOpen(!isOpen);
-              }}
-            >
-              {isOpen && <Modalpop setmode={setIsOpen} />}
-              <td className="border-2 p-2">Alroy fernandes</td>
-              <td className="border-2 p-2">191106005</td>
-              <td className="border-2 p-2">Alroy@yahoo.in</td>
-              <th className="border-2 p-2">19</th>
-              <th className="border-2 p-2">10</th>
-            </tr>
-          </table>
-        </div>
+        {!loading && (
+          <div className="flex  w-4/5 justify-center flex-wrap bg-white">
+            <table className="border-2 w-full">
+              <tr className="border-2">
+                <th className="border-2 p-2">Name</th>
+                <th className="border-2 p-2">Roll_number</th>
+                <th className="border-2 p-2">Email</th>
+                <th className="border-2 p-2">IT1</th>
+                <th className="border-2 p-2">IT2</th>
+              </tr>
+              {state?.data.map((m) => (
+                <tr
+                  className="hover:cursor-pointer"
+                  onClick={() => {
+                    setIsOpen(!isOpen);
+                  }}
+                >
+                  {isOpen && <Modalpop setmode={setIsOpen} data={m} />}
+                  <td className="border-2 p-2">{m.name}</td>
+                  <td className="border-2 p-2">{m.rollNo}</td>
+                  <td className="border-2 p-2">{m.email}</td>
+                  <th className="border-2 p-2">{m.it1}</th>
+                  <th className="border-2 p-2">{m.it2}</th>
+                </tr>
+              ))}
+            </table>
+          </div>
+        )}
       </div>
-      <Footer />
     </>
   );
 };

@@ -1,23 +1,16 @@
-import React, { useState } from "react";
-import Footer from "../footer/Footer";
-import Navbar from "../Navbar";
-import { useParams, useNavigate } from "react-router-dom";
+import React, { useState, useContext } from "react";
+import { useParams } from "react-router-dom";
 import useForm from "../../hooks/useForm";
-import useSessionStorage from "../../hooks/useSessionStorage";
+
+import { UserContext } from "../../context/userContext";
 
 const Signin = () => {
-  const navigate = useNavigate();
+  const { login, setUser } = useContext(UserContext);
   const [state, setState] = useState(false);
   const [error, setError] = useState("");
   const { who } = useParams();
   const isStudent = who === "student" ? true : false;
   const value = isStudent ? "student" : "faculty";
-  const revValue = !isStudent ? "student" : "faculty";
-  const [storeLoginData, setStoreLoginData] = useSessionStorage(
-    value,
-    "",
-    revValue
-  );
 
   const { formData, handleInputChange } = useForm({
     email: "",
@@ -55,8 +48,7 @@ const Signin = () => {
         if (message) {
           setError(message);
         } else {
-          setStoreLoginData(data);
-          navigate("/dashboard/student");
+          login(data, value);
         }
       })
       .catch((err) => {
@@ -84,8 +76,7 @@ const Signin = () => {
         if (message) {
           setError(message);
         } else {
-          setStoreLoginData(data);
-          navigate("/dashboard/teacher");
+          login(data, value);
         }
       })
       .catch((err) => {
@@ -100,7 +91,6 @@ const Signin = () => {
 
   return (
     <>
-      <Navbar />
       <div
         style={{
           backgroundImage: `url("./work.png")`,
@@ -194,7 +184,6 @@ const Signin = () => {
           </form>
         </div>
       </div>
-      <Footer />
     </>
   );
 };

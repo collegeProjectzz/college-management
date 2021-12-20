@@ -1,6 +1,4 @@
 import useForm from "../../hooks/useForm";
-import Footer from "../footer/Footer";
-import Navbar from "../Navbar";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -54,7 +52,6 @@ export default function SignupTr() {
   };
   return (
     <>
-      <Navbar />
       <div
         style={{
           backgroundImage: `url("/signin.png")`,
@@ -217,7 +214,6 @@ export default function SignupTr() {
           </form>
         </div>
       </div>
-      <Footer />
     </>
   );
 }

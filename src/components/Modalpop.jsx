@@ -2,7 +2,20 @@ import { Fragment, useRef, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { ExclamationIcon } from "@heroicons/react/outline";
 
-export default function Modalpop({ isOpen, setmode }) {
+export default function Modalpop({ isOpen, setmode, data }) {
+  const {
+    cId,
+    cName,
+    credit,
+    dNo,
+    email,
+    it1,
+    it2,
+    name,
+    password,
+    phone,
+    rollNo,
+  } = data;
   const [open, setOpen] = useState(true);
   const [marks, setMarks] = useState({
     first: "",
@@ -59,17 +72,18 @@ export default function Modalpop({ isOpen, setmode }) {
                     </Dialog.Title>
                     <div className="mt-3">
                       <p className="text-sm text-gray-500 text-base">
-                        {`Name: Alroy Fernandes`}
+                        Name:{name}
                       </p>
                       <p className="text-sm text-gray-500 mt-3 text-base">
-                        {`Roll_number: 191106005`}
+                        Roll_number:{rollNo}
                       </p>
                       <p className="text-sm text-gray-500 mt-3 text-base">
-                        {`Email: Alroy@gmail.com`}
+                        Email:{email}
                       </p>
                       <div className="flex mt-3">
                         <input
                           type="text"
+                          value={it1}
                           className="focus:outline-none bg-gray-100 rounded-md p-1"
                           placeholder="Enter IT1 marks"
                           onChange={(e) => {
@@ -79,6 +93,7 @@ export default function Modalpop({ isOpen, setmode }) {
                         />
                         <input
                           type="text"
+                          value={it2}
                           className="focus:outline-none  bg-gray-100 rounded-md p-1 ml-5"
                           placeholder="Enter IT2 marks"
                           onChange={(e) => {

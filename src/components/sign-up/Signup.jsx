@@ -1,7 +1,5 @@
 import React, { useState } from "react";
 import useForm from "../../hooks/useForm";
-import Footer from "../footer/Footer";
-import Navbar from "../Navbar";
 import { useNavigate } from "react-router-dom";
 
 function Signup() {
@@ -39,13 +37,11 @@ function Signup() {
       .then((res) => {
         console.log(res);
         if (res.status === 200) {
-          console.log("satuse is 200");
           setState(false);
           navigate("/signin/student");
         }
       })
       .catch((err) => {
-        console.log("error mz");
         console.log(err);
         setState(false);
       });
@@ -57,7 +53,6 @@ function Signup() {
   };
   return (
     <>
-      <Navbar />
       <div
         style={{
           backgroundImage: `url("/stud.png")`,
@@ -236,7 +231,6 @@ function Signup() {
           </form>
         </div>
       </div>
-      <Footer />
     </>
   );
 }

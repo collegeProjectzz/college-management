@@ -1,13 +1,7 @@
-import Footer from "../footer/Footer";
-import Navbar from "../Navbar";
 import { Link } from "react-router-dom";
-import useSessionStorageAndRedirect from "../../hooks/useSessionStorageAndRedirect";
 const Landing = () => {
-  useSessionStorageAndRedirect("faculty", "/dashboard/teacher");
-  useSessionStorageAndRedirect("student", "/dashboard/student");
   return (
     <>
-      <Navbar />
       <div
         className="h-[100vh] flex justify-center items-center "
         style={{
@@ -43,7 +37,6 @@ const Landing = () => {
           </div>
         </div>
       </div>
-      <Footer />
     </>
   );
 };
