@@ -4,12 +4,13 @@ import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { BellIcon, MenuIcon, XIcon } from "@heroicons/react/outline";
 import { Link } from "react-router-dom";
 import { UserContext } from "../context/userContext";
+import { useState } from "react/cjs/react.development";
 
 const navigation = [
   { name: "Home", href: "/", current: true },
-  { name: "Team", href: "#", current: false },
-  { name: "Projects", href: "#", current: false },
-  { name: "Calendar", href: "#", current: false },
+  // { name: "Team", href: "#", current: false },
+  // { name: "Projects", href: "#", current: false },
+  // { name: "Calendar", href: "#", current: false }, 
 ];
 
 function classNames(...classes) {
@@ -18,7 +19,9 @@ function classNames(...classes) {
 
 export default function Navbar() {
   const { userData, logout } = useContext(UserContext);
-
+  console.log(userData);
+  const data = sessionStorage.getItem("user");
+  console.log(data);
   return (
     <Disclosure as="nav" className="bg-gray-800">
       {({ open }) => (
@@ -72,8 +75,9 @@ export default function Navbar() {
               <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
                 <div className="hidden sm:block sm:ml-6">
                   <div className="flex space-x-4">
-                    {userData == null ? (
+                    {data === null &&
                       <>
+
                         <Menu as="div" className="ml-3 relative">
                           <div>
                             <Menu.Button className="bg-gray-800 flex text-sm rounded-full focus:outline-none  ">
@@ -175,24 +179,24 @@ export default function Navbar() {
                           </Transition>
                         </Menu>
                       </>
-                    ) : (
-                      <Menu as="div" className="ml-3 relative">
-                        <div
-                          onClick={(e) => {
-                            logout();
-                          }}
-                        >
-                          <Menu.Button className="bg-gray-800 flex text-sm rounded-full focus:outline-none">
-                            <span
-                              className="text-gray-300 hover:bg-gray-700 hover:text-white
+                    }
+                    {data && <Menu as="div" className="ml-3 relative">
+                      <div
+                        onClick={(e) => {
+                          logout();
+                        }}
+                      >
+                        <Menu.Button className="bg-gray-800 flex text-sm rounded-full focus:outline-none">
+                          <span
+                            className="text-gray-300 hover:bg-gray-700 hover:text-white
                           px-3 py-2 rounded-md text-sm font-medium"
-                            >
-                              log out
-                            </span>
-                          </Menu.Button>
-                        </div>
-                      </Menu>
-                    )}
+                          >
+                            log out
+                          </span>
+                        </Menu.Button>
+                      </div>
+                    </Menu>}
+
                   </div>
                 </div>
               </div>
