@@ -1,33 +1,17 @@
-import "./App.css";
-import { Routes, Route, Navigate } from "react-router-dom";
-import { useEffect, useContext } from "react";
+import { Routes, Route } from "react-router-dom";
+import { AuthProvider } from "./context/userContext";
 
-import Studentdash from "./components/dashboard/Studentdash";
-
-import Teacherdash from "./components/dashboard/Teacherdash";
-import Landing from "./components/landlingPage/Landing";
-import Signin from "./components/sign-in/Signin";
-import Signup from "./components/sign-up/Signup";
-import SignupTr from "./components/sign-up/SignupTr";
-import { AuthProvider, UserContext } from "./context/userContext";
-import { useNavigate } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Footer from "./components/footer/Footer";
 
-function App() {
-  // const navigate = useNavigate();
-  // const {login} = useContext(UserContext);
-  // const user = sessionStorage.getItem("user");
-  // const userData = sessionStorage.getItem(user);
-  // useEffect(() => {
-  //   if(user && userData){
-  //     login(userData, user);
-  //   }
-  // }, []);
+import Studentdash from "./pages/Studentdash";
+import Teacherdash from "./pages/Teacherdash";
+import Landing from "./pages/Home";
+import Signin from "./pages/Signin";
+import Signup from "./pages/Signup";
+import SignupTr from "./pages/SignupTr";
 
-  // useEffect(() => {
-  //   !userData && navigate("/");
-  // }, []);
+function App() {
 
   return (
     <>
