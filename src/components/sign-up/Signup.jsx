@@ -11,9 +11,10 @@ function Signup() {
     phone: "",
     password: "",
     dNo: "",
+    cId: "",
   });
 
-  const { name, email, phone, password, dNo } = formData;
+  const { name, email, phone, password, dNo, cId } = formData;
 
   const registerStudent = async () => {
     console.log(formData);
@@ -31,6 +32,7 @@ function Signup() {
           phone,
           password,
           dNo,
+          cId,
         }),
       }
     )
@@ -140,6 +142,22 @@ function Signup() {
                   onChange={handleInputChange}
                   className="appearance-none rounded relative block w-full px-3 py-2 border mt-2 border-gray-300 placeholder-gray-500 text-gray-900 rounded focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                   placeholder="department number"
+                />
+              </div>
+              <div>
+                <label htmlFor="dNo" className="sr-only">
+                  course Id
+                </label>
+                <input
+                  id="cId"
+                  name="cId"
+                  type="text"
+                  value={cId}
+                  autoComplete="phone"
+                  required
+                  onChange={handleInputChange}
+                  className="appearance-none rounded relative block w-full px-3 py-2 border mt-2 border-gray-300 placeholder-gray-500 text-gray-900 rounded focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                  placeholder="course id"
                 />
               </div>
               <div>

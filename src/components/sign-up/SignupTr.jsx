@@ -10,9 +10,10 @@ export default function SignupTr() {
     email: "",
     depart_no: "",
     password: "",
+    courseId: "",
   });
 
-  const { name, email, depart_no, password } = formData;
+  const { name, email, depart_no, password, courseId } = formData;
 
   const registerFaculty = async () => {
     setState(true);
@@ -28,6 +29,7 @@ export default function SignupTr() {
           fEmail: email,
           dNo: depart_no,
           fPassword: password,
+          cId: courseId,
         }),
       }
     )
@@ -139,6 +141,22 @@ export default function SignupTr() {
                   onChange={handleInputChange}
                   className="appearance-none rounded relative block w-full px-3 py-2 border mt-2 border-gray-300 placeholder-gray-500 text-gray-900 rounded focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                   placeholder="Department number"
+                />
+              </div>
+              <div>
+                <label htmlFor="depart_no" className="sr-only">
+                  Course Id
+                </label>
+                <input
+                  id="courseId"
+                  name="courseId"
+                  value={courseId}
+                  type="number"
+                  autoComplete="number"
+                  required
+                  onChange={handleInputChange}
+                  className="appearance-none rounded relative block w-full px-3 py-2 border mt-2 border-gray-300 placeholder-gray-500 text-gray-900 rounded focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                  placeholder="course id"
                 />
               </div>
               <div>

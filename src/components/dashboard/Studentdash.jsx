@@ -1,18 +1,17 @@
-import { data } from "autoprefixer";
-import { useState, useEffect, useContext } from "react";
-import { UserContext } from "../../context/userContext";
+import { useState, useEffect } from "react";
 const Studentdash = () => {
-  const { userData } = useContext(UserContext);
-  console.log("userData", userData);
-  const { rollNo } = userData;
   const [state, setState] = useState();
   const [loading, setLoading] = useState(false);
-  const fetchStudentData = async () => {
+
+  const data = sessionStorage.getItem("student");
+  const userData = JSON.parse(data);
+
+
+  const fetchStudentData = () => {
     setLoading(true);
     fetch(
       "http://localhost/college-backend/api/exam/getStudentMarks.php?rollNo=" +
-      // userData.rollNo
-      11
+      userData.rollNo
     )
       .then((res) => res.json())
       .then((data) => {

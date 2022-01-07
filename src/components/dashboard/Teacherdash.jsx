@@ -63,7 +63,7 @@ const Teacherdash = () => {
                 <th className="border-2 p-2">IT1</th>
                 <th className="border-2 p-2">IT2</th>
               </tr>
-              {state?.data.map((m) => (
+              {state?.data?.map((m) => (
                 <tr
                   className="hover:cursor-pointer"
                   onClick={() => {
