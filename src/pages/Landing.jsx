@@ -37,17 +37,17 @@ export default function Landing() {
     };
     return (
         <div className="columns-1">
-            <div id="sec-1" className="h-[100vh] flex justify-center items-center p-10" >
+            <div id="sec-1" className="flex flex-col justify-center items-center p-10 lg:flex-row " >
                 <Fade left>
-                    <div className="w-1/2 row-3 ">
-                        <h1 className="m-5 font-black text-8xl">
+                    <div className="w-full row-3 lg:w-1/2">
+                        <h1 className="m-1 font-black text-4xl sm:text-5xl lg:text-7xl md:text-6xl lg:m-3">
                             <Gradient dir="left-to-right" from="#007CF0" to="#00DFD8">
                                 college management
                             </Gradient>
                         </h1>
-                        <p className="m-5 text-gray-900 text-lg">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Mollitia provident illum nesciunt deserunt, esse atque soluta non maiores, commodi quam ipsum ullam incidunt quibusdam in voluptates blanditiis doloremque quaerat exercitationem.Lorem, ipsum dolor sit amet consectetur adipisicing elit. Mollitia provident illum nesciunt deserunt, esse atque soluta non maiores, commodi quam ipsum ullam incidunt quibusdam in voluptates blanditiis doloremque quaerat exercitationem.
+                        <p className="my-5 m-1 text-gray-900 text-lg sm:m-2">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Mollitia provident illum nesciunt deserunt, esse atque soluta non maiores, commodi quam ipsum ullam incidunt quibusdam in voluptates blanditiis doloremque quaerat exercitationem.Lorem, ipsum dolor sit amet consectetur adipisicing elit. Mollitia provident illum nesciunt deserunt, esse atque soluta non maiores, commodi quam ipsum ullam incidunt quibusdam in voluptates blanditiis doloremque quaerat exercitationem.
                         </p>
-                        <div className="flex justify-items-start">
+                        <div className="flex flex-col justify-items-start sm:flex-row">
                             <button className="flex justify-center items-center m-5 rounded-2xl p-5 bg-gradient-to-r from-blue-600 to-sky-300 hover:from-blue-600 hover:to-sky-200">
                                 <SLink
                                     to="sec-3"
@@ -77,31 +77,28 @@ export default function Landing() {
                         </div>
                     </div>
                 </Fade>
-
-                <div className="w-1/2 justify-center items-center">
+                <div className="w-full justify-center items-center lg:w-1/2">
                     <Lottie
                         options={defaultOptions1}
                     />
                 </div>
             </div>
-            <div id="sec-2" className="h-[100vh] flex justify-center items-center p-10 bg-blue-800">
+            <div id="sec-2" className="flex flex-col justify-center items-center p-10 lg:flex-row bg-blue-900">
                 <div className="w-1/2 justify-center items-center">
                     <Lottie
                         options={defaultOptions2}
                     />
                 </div>
                 <Fade right>
-
-                    <div className="w-1/2 row-3 ">
-
-                        <h1 className="m-5 font-black text-8xl">
+                    <div className="w-full row-3 lg:w-1/2">
+                        <h1 className="m-1 font-black text-4xl sm:text-5xl lg:text-7xl md:text-6xl lg:m-3">
                             <Gradient dir="left-to-right" from="#cffafe" to="#22d3ee">
                                 for faculties
                             </Gradient>
                         </h1>
-                        <p className="m-5 text-cyan-50 text-lg">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Mollitia provident illum nesciunt deserunt, esse atque soluta non maiores, commodi quam ipsum ullam incidunt quibusdam in voluptates blanditiis doloremque quaerat exercitationem.Lorem, ipsum dolor sit amet consectetur adipisicing elit. Mollitia provident illum nesciunt deserunt, esse atque soluta non maiores, commodi quam ipsum ullam incidunt quibusdam in voluptates blanditiis doloremque quaerat exercitationem.
+                        <p className="my-5 m-1 text-gray-900 text-lg sm:m-2">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Mollitia provident illum nesciunt deserunt, esse atque soluta non maiores, commodi quam ipsum ullam incidunt quibusdam in voluptates blanditiis doloremque quaerat exercitationem.Lorem, ipsum dolor sit amet consectetur adipisicing elit. Mollitia provident illum nesciunt deserunt, esse atque soluta non maiores, commodi quam ipsum ullam incidunt quibusdam in voluptates blanditiis doloremque quaerat exercitationem.
                         </p>
-                        <div className="flex justify-items-start">
+                        <div className="flex flex-col justify-items-start sm:flex-row">
                             <button className="flex justify-center items-center m-5 rounded-2xl p-5 bg-gradient-to-r from-blue-600 to-sky-300 hover:from-blue-600 hover:to-sky-200">
                                 <Link
                                     to="/signin/faculty"
@@ -123,19 +120,18 @@ export default function Landing() {
                         </div>
                     </div>
                 </Fade>
-
             </div>
-            <div id="sec-3" className="h-[100vh] flex justify-center items-center p-10">
+            <div id="sec-3" className="flex flex-col justify-center items-center p-10 lg:flex-row " >
                 <Fade left>
-                    <div className="w-1/2 row-3 ">
-                        <h1 className="m-5 font-black text-8xl">
+                    <div className="w-full row-3 lg:w-1/2">
+                        <h1 className="m-1 font-black text-4xl sm:text-5xl lg:text-7xl md:text-6xl lg:m-3">
                             <Gradient dir="left-to-right" from="#007CF0" to="#00DFD8">
                                 for Students
                             </Gradient>
                         </h1>
-                        <p className="m-5 text-gray-900 text-lg">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Mollitia provident illum nesciunt deserunt, esse atque soluta non maiores, commodi quam ipsum ullam incidunt quibusdam in voluptates blanditiis doloremque quaerat exercitationem.Lorem, ipsum dolor sit amet consectetur adipisicing elit. Mollitia provident illum nesciunt deserunt, esse atque soluta non maiores, commodi quam ipsum ullam incidunt quibusdam in voluptates blanditiis doloremque quaerat exercitationem.
+                        <p className="my-5 m-1 text-gray-900 text-lg sm:m-2">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Mollitia provident illum nesciunt deserunt, esse atque soluta non maiores, commodi quam ipsum ullam incidunt quibusdam in voluptates blanditiis doloremque quaerat exercitationem.Lorem, ipsum dolor sit amet consectetur adipisicing elit. Mollitia provident illum nesciunt deserunt, esse atque soluta non maiores, commodi quam ipsum ullam incidunt quibusdam in voluptates blanditiis doloremque quaerat exercitationem.
                         </p>
-                        <div className="flex justify-items-start">
+                        <div className="flex flex-col justify-items-start sm:flex-row">
                             <button className="flex justify-center items-center m-5 rounded-2xl p-5 bg-gradient-to-r from-blue-600 to-sky-300 hover:from-blue-600 hover:to-sky-200">
                                 <Link
                                     to="/signin/student"
@@ -157,9 +153,9 @@ export default function Landing() {
                         </div>
                     </div>
                 </Fade>
-                <div className="w-1/2 justify-center items-center">
+                <div className="w-full justify-center items-center lg:w-1/2">
                     <Lottie
-                        options={defaultOptions3}
+                        options={defaultOptions1}
                     />
                 </div>
             </div>
