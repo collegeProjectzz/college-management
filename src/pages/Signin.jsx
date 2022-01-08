@@ -1,8 +1,7 @@
 import React, { useState, useContext } from "react";
 import { useParams } from "react-router-dom";
-import useForm from "../../hooks/useForm";
-
-import { UserContext } from "../../context/userContext";
+import useForm from "../hooks/useForm";
+import { UserContext } from "../context/userContext";
 
 const Signin = () => {
   const { login, setUser } = useContext(UserContext);

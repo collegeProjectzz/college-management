@@ -1,38 +1,23 @@
-import "./App.css";
-import { Routes, Route, Navigate } from "react-router-dom";
-import { useEffect, useContext } from "react";
+import React from "react";
+import { Routes, Route, useParams, useLocation } from "react-router-dom";
+import { AuthProvider } from "./context/userContext";
 
-import Studentdash from "./components/dashboard/Studentdash";
-
-import Teacherdash from "./components/dashboard/Teacherdash";
-import Landing from "./components/landlingPage/Landing";
-import Signin from "./components/sign-in/Signin";
-import Signup from "./components/sign-up/Signup";
-import SignupTr from "./components/sign-up/SignupTr";
-import { AuthProvider, UserContext } from "./context/userContext";
-import { useNavigate } from "react-router-dom";
 import Navbar from "./components/Navbar";
-import Footer from "./components/footer/Footer";
+import Footer from "./components/Footer";
+
+import Studentdash from "./pages/Studentdash";
+import Teacherdash from "./pages/Teacherdash";
+import Signin from "./pages/Signin";
+import Signup from "./pages/Signup";
+import SignupTr from "./pages/SignupTr";
+import Landing from "./pages/Landing";
 
 function App() {
-  // const navigate = useNavigate();
-  // const {login} = useContext(UserContext);
-  // const user = sessionStorage.getItem("user");
-  // const userData = sessionStorage.getItem(user);
-  // useEffect(() => {
-  //   if(user && userData){
-  //     login(userData, user);
-  //   }
-  // }, []);
-
-  // useEffect(() => {
-  //   !userData && navigate("/");
-  // }, []);
-
+  let { pathname } = useLocation();
   return (
     <>
       <AuthProvider>
-        <Navbar />
+        {pathname !== "/" && <Navbar />}
         <Routes>
           <Route path="/" element={<Landing />} />
           <Route path="/signup/student" element={<Signup />} />

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import Dropdown from "../Dropdown";
-import Modalpop from "../Modalpop";
+import Dropdown from "../components/Dropdown";
+import Modalpop from "../components/Modalpop";
 
 const Teacherdash = () => {
   const [state, setState] = useState();

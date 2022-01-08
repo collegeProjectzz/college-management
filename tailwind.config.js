@@ -1,3 +1,5 @@
+const defaultTheme = require("tailwindcss/defaultTheme");
+
 module.exports = {
   content: ["./src/**/*.{js,jsx,ts,tsx}"],
   theme: {
@@ -14,6 +16,11 @@ module.exports = {
         "90v": "90vh",
         "100v": "100vh",
       },
+    },
+    screens: {
+      xm: "475px",
+      xs: "320px",
+      ...defaultTheme.screens,
     },
   },
   plugins: [],

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import useForm from "../../hooks/useForm";
 import { useNavigate } from "react-router-dom";
+import useForm from "../hooks/useForm";
 
 function Signup() {
   const navigate = useNavigate();

@@ -23,7 +23,7 @@ export default function Navbar() {
   const data = sessionStorage.getItem("user");
   console.log(data);
   return (
-    <Disclosure as="nav" className="bg-gray-800">
+    <Disclosure as="nav" className="bg-transparent">
       {({ open }) => (
         <>
           <div className="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
