@@ -2,8 +2,8 @@ import React from "react";
 import { Routes, Route, useParams, useLocation } from "react-router-dom";
 import { AuthProvider } from "./context/userContext";
 
-import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
+import Nav from "./components/Nav";
 
 import Studentdash from "./pages/Studentdash";
 import Teacherdash from "./pages/Teacherdash";
@@ -16,7 +16,7 @@ function App() {
   return (
     <>
       <AuthProvider>
-        {pathname !== "/" && <Navbar />}
+        {pathname !== "/" && <Nav />}
         <Routes>
           <Route path="/" element={<Landing />} />
           <Route path="/signin/:who" element={<Signin />} />
