@@ -6,7 +6,6 @@ import useForm from '../hooks/useForm';
 import { AiOutlineArrowRight } from 'react-icons/ai';
 
 import data1 from '../assets/41464-student-with-books.json';
-import data2 from '../assets/73170-teacher-all-language.json';
 import RightBanner from '../components/RightBanner';
 
 const depts = [
@@ -138,9 +137,9 @@ export default function SignUp() {
     return (
         <>
             <div className="flex flex-col flex-wrap justify-center items-center md:flex-row">
-                <RightBanner data={isStudent ? data1 : data2} text={`You are one step away from signing up as a ${isStudent ? "Student" : "Faculty"}`} />
-                <div className="flex flex-col w-full md:w-1/2 justify-center items-center">
-                    <div className="w-1/2">
+                <RightBanner data={data1} text={`You are one step away from signing up as a ${isStudent ? "Student" : "Faculty"}`} />
+                <div className="my-8 flex flex-col w-full md:w-1/2 justify-center items-center sm:my-0">
+                    <div className="w-5/6 md:w-3/6">
                         {
                             !next && (
                                 <div>
