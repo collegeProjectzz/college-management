@@ -8,9 +8,8 @@ import Footer from "./components/Footer";
 import Studentdash from "./pages/Studentdash";
 import Teacherdash from "./pages/Teacherdash";
 import Signin from "./pages/Signin";
-import Signup from "./pages/Signup";
-import SignupTr from "./pages/SignupTr";
 import Landing from "./pages/Landing";
+import SignUp from "./pages/Signup";
 
 function App() {
   let { pathname } = useLocation();
@@ -20,9 +19,8 @@ function App() {
         {pathname !== "/" && <Navbar />}
         <Routes>
           <Route path="/" element={<Landing />} />
-          <Route path="/signup/student" element={<Signup />} />
-          <Route path="/signup/faculty" element={<SignupTr />} />
           <Route path="/signin/:who" element={<Signin />} />
+          <Route path="/signup/:who" element={<SignUp />} />
           <Route path="/dashboard/student" element={<Studentdash />} />
           <Route path="/dashboard/faculty" element={<Teacherdash />} />
         </Routes>

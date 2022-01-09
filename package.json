@@ -18,7 +18,6 @@
     "react-scripts": "5.0.0",
     "react-scroll": "^1.8.4",
     "react-textgradient": "^0.0.2",
-    "rgt": "^1.0.7",
     "web-vitals": "^2.1.2"
   },
   "scripts": {

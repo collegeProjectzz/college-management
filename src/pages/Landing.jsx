@@ -1,6 +1,5 @@
 import React from 'react';
 import Lottie from 'react-lottie';
-import Gradient from 'rgt';
 import { AiOutlineArrowRight } from 'react-icons/ai';
 import { Link as SLink } from "react-scroll";
 import Fade from 'react-reveal/Fade';
@@ -40,11 +39,11 @@ export default function Landing() {
             <div id="sec-1" className="flex flex-col justify-center items-center p-10 lg:flex-row " >
                 <Fade left>
                     <div className="w-full row-3 lg:w-1/2">
-                        <h1 className="m-1 font-black text-4xl sm:text-5xl lg:text-7xl md:text-6xl lg:m-3">
-                            <Gradient dir="left-to-right" from="#007CF0" to="#00DFD8">
-                                college management
-                            </Gradient>
-                        </h1>
+                        <div class="m-1 font-black text-4xl sm:text-5xl lg:text-7xl md:text-6xl lg:m-3">
+                            <span class="bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-cyan-300">
+                                College management
+                            </span>
+                        </div>
                         <p className="my-5 m-1 text-gray-900 text-lg sm:m-2">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Mollitia provident illum nesciunt deserunt, esse atque soluta non maiores, commodi quam ipsum ullam incidunt quibusdam in voluptates blanditiis doloremque quaerat exercitationem.Lorem, ipsum dolor sit amet consectetur adipisicing elit. Mollitia provident illum nesciunt deserunt, esse atque soluta non maiores, commodi quam ipsum ullam incidunt quibusdam in voluptates blanditiis doloremque quaerat exercitationem.
                         </p>
                         <div className="flex flex-col justify-items-start sm:flex-row">
@@ -91,11 +90,11 @@ export default function Landing() {
                 </div>
                 <Fade right>
                     <div className="w-full row-3 lg:w-1/2">
-                        <h1 className="m-1 font-black text-4xl sm:text-5xl lg:text-7xl md:text-6xl lg:m-3">
-                            <Gradient dir="left-to-right" from="#cffafe" to="#22d3ee">
-                                for faculties
-                            </Gradient>
-                        </h1>
+                        <div class="m-1 font-black text-4xl sm:text-5xl lg:text-7xl md:text-6xl lg:m-3">
+                            <span class="bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-cyan-300">
+                                For faculties
+                            </span>
+                        </div>
                         <p className="my-5 m-1 text-gray-900 text-lg sm:m-2">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Mollitia provident illum nesciunt deserunt, esse atque soluta non maiores, commodi quam ipsum ullam incidunt quibusdam in voluptates blanditiis doloremque quaerat exercitationem.Lorem, ipsum dolor sit amet consectetur adipisicing elit. Mollitia provident illum nesciunt deserunt, esse atque soluta non maiores, commodi quam ipsum ullam incidunt quibusdam in voluptates blanditiis doloremque quaerat exercitationem.
                         </p>
                         <div className="flex flex-col justify-items-start sm:flex-row">
@@ -124,11 +123,11 @@ export default function Landing() {
             <div id="sec-3" className="flex flex-col justify-center items-center p-10 lg:flex-row " >
                 <Fade left>
                     <div className="w-full row-3 lg:w-1/2">
-                        <h1 className="m-1 font-black text-4xl sm:text-5xl lg:text-7xl md:text-6xl lg:m-3">
-                            <Gradient dir="left-to-right" from="#007CF0" to="#00DFD8">
-                                for Students
-                            </Gradient>
-                        </h1>
+                        <div class="m-1 font-black text-4xl sm:text-5xl lg:text-7xl md:text-6xl lg:m-3">
+                            <span class="bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-cyan-300">
+                                For Students
+                            </span>
+                        </div>
                         <p className="my-5 m-1 text-gray-900 text-lg sm:m-2">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Mollitia provident illum nesciunt deserunt, esse atque soluta non maiores, commodi quam ipsum ullam incidunt quibusdam in voluptates blanditiis doloremque quaerat exercitationem.Lorem, ipsum dolor sit amet consectetur adipisicing elit. Mollitia provident illum nesciunt deserunt, esse atque soluta non maiores, commodi quam ipsum ullam incidunt quibusdam in voluptates blanditiis doloremque quaerat exercitationem.
                         </p>
                         <div className="flex flex-col justify-items-start sm:flex-row">
@@ -155,7 +154,7 @@ export default function Landing() {
                 </Fade>
                 <div className="w-full justify-center items-center lg:w-1/2">
                     <Lottie
-                        options={defaultOptions1}
+                        options={defaultOptions3}
                     />
                 </div>
             </div>

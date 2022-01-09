@@ -1,256 +1,394 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import useForm from "../hooks/useForm";
+import React, { useState, Fragment } from 'react';
+import { useNavigate, useParams } from "react-router-dom";
+import { Listbox, Transition } from '@headlessui/react';
+import { CheckIcon, SelectorIcon } from '@heroicons/react/solid';
+import useForm from '../hooks/useForm';
+import { AiOutlineArrowRight } from 'react-icons/ai';
 
-function Signup() {
-  const navigate = useNavigate();
-  const [state, setState] = useState(false);
-  const { formData, handleInputChange } = useForm({
-    name: "",
-    email: "",
-    phone: "",
-    password: "",
-    dNo: "",
-    cId: "",
-  });
+import data1 from '../assets/41464-student-with-books.json';
+import data2 from '../assets/73170-teacher-all-language.json';
+import RightBanner from '../components/RightBanner';
 
-  const { name, email, phone, password, dNo, cId } = formData;
+const depts = [
+    { id: 1, name: "DBMS" },
+    { id: 2, name: "IOT" },
+    { id: 3, name: "JAVA" },
+    { id: 4, name: "SQL" },
+    { id: 5, name: "EACT" },
+    { id: 6, name: "HMM" },
+];
 
-  const registerStudent = async () => {
-    console.log(formData);
-    setState(true);
-    await fetch(
-      "http://localhost/college-backend/api/student/registerStudent.php",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          name,
-          email,
-          phone,
-          password,
-          dNo,
-          cId,
-        }),
-      }
-    )
-      .then((res) => {
-        console.log(res);
-        if (res.status === 200) {
-          setState(false);
-          navigate("/signin/student");
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-        setState(false);
-      });
-  };
+const courses = [
+    { id: 1, name: "DBMS" },
+    { id: 2, name: "IOT" },
+    { id: 3, name: "JAVA" },
+    { id: 4, name: "SQL" },
+    { id: 5, name: "EACT" },
+    { id: 6, name: "HMM" },
+];
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    registerStudent();
-  };
-  return (
-    <>
-      <div
-        style={{
-          backgroundImage: `url("/stud.png")`,
-          backgroundPosition: "center",
-          backgroundRepeat: "no-repeat",
-          backgroundSize: "1000px 700px",
-        }}
-        className="min-h-full  h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8"
-      >
-        <div className="max-w-md w-full space-y-8">
-          <div>
-            <img
-              className="mx-auto h-12 w-auto"
-              src="https://tailwindui.com/img/logos/workflow-mark-indigo-600.svg"
-              alt="Workflow"
-            />
-            <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
-              Sign up to Classroom
-            </h2>
-          </div>
-          <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
-            <input type="hidden" name="remember" defaultValue="true" />
-            <div className="rounded-md shadow-sm -space-y-px">
-              <div>
-                <label htmlFor="name" className="sr-only">
-                  Name
-                </label>
-                <input
-                  id="name"
-                  name="name"
-                  value={name}
-                  type="text"
-                  autoComplete="text"
-                  required
-                  className="appearance-none rounded relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-                  placeholder="Name"
-                  onChange={handleInputChange}
-                />
-              </div>
-              <div>
-                <label htmlFor="email" className="sr-only">
-                  email
-                </label>
-                <input
-                  id="email"
-                  name="email"
-                  value={email}
-                  type="text"
-                  autoComplete="email"
-                  required
-                  className="appearance-none rounded relative block w-full mt-2 px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 mt-2 focus:z-10 sm:text-sm"
-                  placeholder="Email"
-                  onChange={handleInputChange}
-                />
-              </div>
-              {/* <div>
-                <label htmlFor="email-address" className="sr-only">
-                  Roll no.
-                </label>
-                <input
-                  id="email-address"
-                  name="email"
-                  type="text"
-                  autoComplete="text"
-                  required
-                  onChange={(e) => {
-                    userData.roll_no = e.target.value;
-                    setUserData(userData);
-                  }}
-                  className="appearance-none rounded relative block w-full px-3 py-2 border mt-2 border-gray-300 placeholder-gray-500 text-gray-900 rounded focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-                  placeholder="Roll Number"
-                />
-              </div> */}
-              <div>
-                <label htmlFor="dNo" className="sr-only">
-                  department number
-                </label>
-                <input
-                  id="dNo"
-                  name="dNo"
-                  type="text"
-                  value={dNo}
-                  autoComplete="phone"
-                  required
-                  onChange={handleInputChange}
-                  className="appearance-none rounded relative block w-full px-3 py-2 border mt-2 border-gray-300 placeholder-gray-500 text-gray-900 rounded focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-                  placeholder="department number"
-                />
-              </div>
-              <div>
-                <label htmlFor="dNo" className="sr-only">
-                  course Id
-                </label>
-                <input
-                  id="cId"
-                  name="cId"
-                  type="text"
-                  value={cId}
-                  autoComplete="phone"
-                  required
-                  onChange={handleInputChange}
-                  className="appearance-none rounded relative block w-full px-3 py-2 border mt-2 border-gray-300 placeholder-gray-500 text-gray-900 rounded focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-                  placeholder="course id"
-                />
-              </div>
-              <div>
-                <label htmlFor="phone" className="sr-only">
-                  Phone number
-                </label>
-                <input
-                  id="phone"
-                  name="phone"
-                  type="text"
-                  value={phone}
-                  autoComplete="phone"
-                  required
-                  onChange={handleInputChange}
-                  className="appearance-none rounded relative block w-full px-3 py-2 border mt-2 border-gray-300 placeholder-gray-500 text-gray-900 rounded focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-                  placeholder="Phone number"
-                />
-              </div>
-              <div>
-                <label htmlFor="password" className="sr-only">
-                  Password
-                </label>
-                <input
-                  id="password"
-                  name="password"
-                  type="password"
-                  value={password}
-                  autoComplete="current-password"
-                  required
-                  onChange={handleInputChange}
-                  className="appearance-none rounded relative block w-full px-3  mt-2 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-                  placeholder="Password"
-                />
-              </div>
-            </div>
-
-            {/* <div className="flex items-center justify-between">
-              <div className="flex items-center">
-                <input
-                  id="remember-me"
-                  name="remember-me"
-                  type="checkbox"
-                  className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
-                />
-                <label
-                  htmlFor="remember-me"
-                  className="ml-2 block text-sm text-gray-900"
-                >
-                  Remember me
-                </label>
-              </div>
-
-              <div className="text-sm">
-                <a
-                  href="#"
-                  className="font-medium text-indigo-600 hover:text-indigo-500"
-                >
-                  Forgot your password?
-                </a>
-              </div>
-            </div> */}
-
-            <div>
-              <button
-                type="submit"
-                onSubmit={handleSubmit}
-                className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-              >
-                {!state ? (
-                  "Sign up"
-                ) : (
-                  <svg
-                    class="w-6 h-6 mx-auto animate-spin"
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
-                    />
-                  </svg>
-                )}
-              </button>
-            </div>
-          </form>
-        </div>
-      </div>
-    </>
-  );
+function classNames(...classes) {
+    return classes.filter(Boolean).join(' ');
 }
 
-export default Signup;
+export default function SignUp() {
+    const { who } = useParams();
+    const isStudent = who === "student" ? true : false;
+    const navigate = useNavigate();
+    const [next, setNext] = useState(false);
+    const [state, setState] = useState(false);
+    const [selectCourse, setSelectCourse] = useState(courses[3]);
+    const [selectedDept, setSelectedDept] = useState(depts[3]);
+
+    const { formData: facultyFormData, handleInputChange: handleFacultyInputChange } = useForm({
+        name: "",
+        email: "",
+        dNo: "",
+        password: "",
+        cId: "",
+    });
+
+    const { formData: studentFormData, handleInputChange: handleStudentInputChange } = useForm({
+        name: "",
+        email: "",
+        phone: "",
+        password: "",
+        dNo: "",
+        cId: "",
+    });
+
+    const { name: facultyName, email: facultyEmail, dNo: facultyDNo, password: facultyPassword, cId: facultyCID } = facultyFormData;
+
+    const { name: studentName, email: studentEmail, phone: studentPhone, password: studentPassword, dNo: studentDNO, cId: studentCID } = studentFormData;
+
+    const registerStudent = async () => {
+        setState(true);
+        await fetch(
+            "http://localhost/college-backend/api/student/registerStudent.php",
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    name: studentName,
+                    email: studentEmail,
+                    phone: studentPhone,
+                    password: studentPassword,
+                    dNo: studentDNO,
+                    cId: studentCID,
+                }),
+            }
+        )
+            .then((res) => {
+                console.log(res);
+                if (res.status === 200) {
+                    setState(false);
+                    navigate("/signin/student");
+                }
+            })
+            .catch((err) => {
+                console.log(err);
+                setState(false);
+            });
+    };
+
+    const registerFaculty = async () => {
+        setState(true);
+        await fetch(
+            "http://localhost/college-backend/api/faculty/registerFaculty.php",
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    fName: facultyName,
+                    fEmail: facultyEmail,
+                    dNo: facultyDNo,
+                    fPassword: facultyPassword,
+                    cId: facultyCID,
+                }),
+            }
+        )
+            .then((res) => {
+                console.log(res);
+                if (res.status === 200) {
+                    console.log("satuse is 200");
+                    setState(false);
+                    navigate("/signin/teacher");
+                }
+            })
+            .catch((err) => {
+                console.log("error mz");
+                console.log(err);
+                setState(false);
+            });
+    };
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        isStudent ?
+            await registerStudent()
+            : await registerFaculty();
+    };
+
+    const handleInputChange = isStudent ? handleStudentInputChange : handleFacultyInputChange;
+
+    return (
+        <>
+            <div className="flex flex-col flex-wrap justify-center items-center md:flex-row">
+                <RightBanner data={isStudent ? data1 : data2} text={`You are one step away from signing up as a ${isStudent ? "Student" : "Faculty"}`} />
+                <div className="flex flex-col w-full md:w-1/2 justify-center items-center">
+                    <div className="w-1/2">
+                        {
+                            !next && (
+                                <div>
+                                    <div class="m-1 font-black text-4xl sm:text-5xl lg:text-7xl md:text-6xl lg:m-3">
+                                        <span class="bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-cyan-300">
+                                            Signup
+                                            as a {isStudent ? "student" : "faculty"}
+                                        </span>
+                                    </div>
+                                    <input type="hidden" name="remember" defaultValue="true" />
+                                    <div className="m-6">
+                                        <label htmlFor="name" className="sr-only">
+                                            name
+                                        </label>
+                                        <input
+                                            name={isStudent ? studentName : facultyName}
+                                            value={isStudent ? studentName : facultyName}
+                                            type="name"
+                                            required
+                                            onChange={handleInputChange}
+                                            className="appearance-none rounded-lg relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                                            placeholder="Enter your name"
+                                        />
+                                    </div>
+                                    <div className="m-6">
+                                        <label htmlFor="email-address" className="sr-only">
+                                            Email address
+                                        </label>
+                                        <input
+                                            name={isStudent ? studentName : facultyName}
+                                            type="email"
+                                            value={isStudent ? studentName : facultyName}
+                                            onChange={handleInputChange}
+                                            autoComplete="email"
+                                            required
+                                            className="appearance-none rounded-lg relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                                            placeholder="Email address"
+                                        />
+                                    </div>
+                                    {isStudent && (
+                                        <div className="m-6">
+                                            <label htmlFor="phone" className="sr-only">
+                                                Phone number
+                                            </label>
+                                            <input
+                                                name={studentPhone}
+                                                type="phone"
+                                                value={studentPhone}
+                                                onChange={handleInputChange}
+                                                required
+                                                className="appearance-none rounded-lg relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                                                placeholder="Phone number"
+                                            />
+                                        </div>
+                                    )}
+                                    <div className="m-6">
+                                        <label htmlFor="password" className="sr-only">
+                                            Password
+                                        </label>
+                                        <input
+                                            name={isStudent ? studentPassword : facultyPassword}
+                                            type="password"
+                                            value={isStudent ? studentPassword : facultyPassword}
+                                            onChange={handleInputChange}
+                                            required
+                                            className="appearance-none rounded-lg relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                                            placeholder="Enter password"
+                                        />
+                                    </div>
+                                    <Listbox value={selectedDept} onChange={setSelectedDept}>
+                                        {({ open }) => (
+                                            <>
+                                                <div className="m-6 relative">
+                                                    <Listbox.Button className="relative w-full bg-white border border-gray-300 rounded-md shadow-sm pl-3 pr-10 py-2 text-left cursor-default focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                                                        <span className="flex items-center">
+                                                            <span className="ml-3 block truncate">{selectedDept.id}-{selectedDept.name}</span>
+                                                        </span>
+                                                        <span className="ml-3 absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
+                                                            <SelectorIcon className="h-5 w-5 text-gray-400" aria-hidden="true" />
+                                                        </span>
+                                                    </Listbox.Button>
+
+                                                    <Transition
+                                                        show={open}
+                                                        as={Fragment}
+                                                        leave="transition ease-in duration-100"
+                                                        leaveFrom="opacity-100"
+                                                        leaveTo="opacity-0"
+                                                    >
+                                                        <Listbox.Options className="absolute z-10 mt-1 w-full bg-white shadow-lg max-h-56 rounded-md py-1 text-base ring-1 ring-black ring-opacity-5 overflow-auto focus:outline-none sm:text-sm">
+                                                            {depts.map((d) => (
+                                                                <Listbox.Option
+                                                                    key={d.id}
+                                                                    className={({ active }) =>
+                                                                        classNames(
+                                                                            active ? 'text-white bg-indigo-600' : 'text-gray-900',
+                                                                            'cursor-default select-none relative py-2 pl-3 pr-9'
+                                                                        )
+                                                                    }
+                                                                    value={d}
+                                                                >
+                                                                    {({ selected, active }) => (
+                                                                        <>
+                                                                            <div className="flex items-center">
+                                                                                <span
+                                                                                    className={classNames(selected ? 'font-semibold' : 'font-normal', 'ml-3 block truncate')}
+                                                                                >
+                                                                                    {d.name}
+                                                                                </span>
+                                                                            </div>
+
+                                                                            {selected ? (
+                                                                                <span
+                                                                                    className={classNames(
+                                                                                        active ? 'text-white' : 'text-indigo-600',
+                                                                                        'absolute inset-y-0 right-0 flex items-center pr-4'
+                                                                                    )}
+                                                                                >
+                                                                                    <CheckIcon className="h-5 w-5" aria-hidden="true" />
+                                                                                </span>
+                                                                            ) : null}
+                                                                        </>
+                                                                    )}
+                                                                </Listbox.Option>
+                                                            ))}
+                                                        </Listbox.Options>
+                                                    </Transition>
+                                                </div>
+                                            </>
+                                        )}
+                                    </Listbox>
+                                    <button className="flex justify-center items-center m-5 rounded-2xl p-2 bg-gradient-to-r from-blue-600 to-sky-300 hover:from-blue-600 hover:to-sky-200"
+                                        onClick={() => {
+                                            setNext(true);
+                                        }}
+                                    >
+                                        <span className="flex items-center justify-center text-white">
+                                            next <AiOutlineArrowRight className="ml-2" />
+                                        </span>
+                                    </button>
+                                </div>
+                            )
+                        }
+                        {
+                            next && (
+                                <div>
+                                    <div class="m-1 font-black text-2xl sm:text-3xl lg:text-5xl md:text-4xl lg:m-3 text-center">
+                                        <span class="bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-cyan-300">
+                                            Choose Course
+                                        </span>
+                                    </div>
+                                    <Listbox value={selectCourse} onChange={setSelectCourse}>
+                                        {({ open }) => (
+                                            <>
+                                                <div className="m-6 relative">
+                                                    <Listbox.Button className="relative w-full bg-white border border-gray-300 rounded-md shadow-sm pl-3 pr-10 py-2 text-left cursor-default focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                                                        <span className="flex items-center">
+                                                            <span className="ml-3 block truncate">{selectCourse.name}</span>
+                                                        </span>
+                                                        <span className="ml-3 absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
+                                                            <SelectorIcon className="h-5 w-5 text-gray-400" aria-hidden="true" />
+                                                        </span>
+                                                    </Listbox.Button>
+
+                                                    <Transition
+                                                        show={open}
+                                                        as={Fragment}
+                                                        leave="transition ease-in duration-100"
+                                                        leaveFrom="opacity-100"
+                                                        leaveTo="opacity-0"
+                                                    >
+                                                        <Listbox.Options className="absolute z-10 mt-1 w-full bg-white shadow-lg max-h-56 rounded-md py-1 text-base ring-1 ring-black ring-opacity-5 overflow-auto focus:outline-none sm:text-sm">
+                                                            {courses.map((person) => (
+                                                                <Listbox.Option
+                                                                    key={person.id}
+                                                                    className={({ active }) =>
+                                                                        classNames(
+                                                                            active ? 'text-white bg-indigo-600' : 'text-gray-900',
+                                                                            'cursor-default select-none relative py-2 pl-3 pr-9'
+                                                                        )
+                                                                    }
+                                                                    value={person}
+                                                                >
+                                                                    {({ selected, active }) => (
+                                                                        <>
+                                                                            <div className="flex items-center">
+                                                                                <span
+                                                                                    className={classNames(selected ? 'font-semibold' : 'font-normal', 'ml-3 block truncate')}
+                                                                                >
+                                                                                    {person.name}
+                                                                                </span>
+                                                                            </div>
+
+                                                                            {selected ? (
+                                                                                <span
+                                                                                    className={classNames(
+                                                                                        active ? 'text-white' : 'text-indigo-600',
+                                                                                        'absolute inset-y-0 right-0 flex items-center pr-4'
+                                                                                    )}
+                                                                                >
+                                                                                    <CheckIcon className="h-5 w-5" aria-hidden="true" />
+                                                                                </span>
+                                                                            ) : null}
+                                                                        </>
+                                                                    )}
+                                                                </Listbox.Option>
+                                                            ))}
+                                                        </Listbox.Options>
+                                                    </Transition>
+                                                </div>
+                                            </>
+                                        )}
+                                    </Listbox>
+                                    <div className="flex justify-center items-center">
+                                        <button
+                                            type="submit"
+                                            onSubmit={handleSubmit}
+                                            className="flex justify-center items-center m-5 rounded-full p-3 bg-gradient-to-r from-blue-600 to-sky-300 hover:from-blue-600 hover:to-sky-200"
+                                        >
+
+                                            {!state ? (
+                                                <span className="flex items-center justify-center text-white">
+                                                    Sign up
+                                                </span>
+                                            ) : (
+                                                <svg
+                                                    class="w-6 h-6 mx-auto animate-spin"
+                                                    xmlns="http://www.w3.org/2000/svg"
+                                                    fill="none"
+                                                    viewBox="0 0 24 24"
+                                                    stroke="currentColor"
+                                                >
+                                                    <path
+                                                        stroke-linecap="round"
+                                                        stroke-linejoin="round"
+                                                        stroke-width="2"
+                                                        d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
+                                                    />
+                                                </svg>
+                                            )}
+                                        </button>
+                                    </div>
+                                </div>
+                            )
+                        }
+                    </div>
+                </div>
+            </div>
+        </>
+    );
+};;
