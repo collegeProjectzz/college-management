@@ -3,8 +3,14 @@ import { useParams } from "react-router-dom";
 import useForm from "../hooks/useForm";
 import { UserContext } from "../context/userContext";
 
+import data1 from '../assets/41464-student-with-books.json';
+import data2 from '../assets/73170-teacher-all-language.json';
+import RightBanner from '../components/RightBanner';
+import { AiOutlineArrowRight } from 'react-icons/ai';
+
+
 const Signin = () => {
-  const { login, setUser } = useContext(UserContext);
+  const { login } = useContext(UserContext);
   const [state, setState] = useState(false);
   const [error, setError] = useState("");
   const { who } = useParams();
@@ -90,27 +96,18 @@ const Signin = () => {
 
   return (
     <>
-      <div
-        style={{
-          backgroundImage: `url("./work.png")`,
-          backgroundPosition: "center",
-          backgroundRepeat: "no-repeat",
-        }}
-        className="min-h-full flex w-full h-[80vh] items-center justify-center py-12 px-4 sm:px-6 lg:px-8"
-      >
-        <div className="max-w-md w-full space-y-8">
-          <div>
-            <img
-              className="mx-auto h-12 w-auto"
-              src="https://tailwindui.com/img/logos/workflow-mark-indigo-600.svg"
-              alt="Workflow"
-            />
-            <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
-              Sign in to your account
-            </h2>
-          </div>
-          <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
-            <div className="rounded-md shadow-sm -space-y-px">
+      <div className="flex flex-col flex-wrap justify-center items-center md:flex-row">
+        <RightBanner data={isStudent ? data1 : data2} text={`You are one step away from signing up as a ${isStudent ? "Student" : "Faculty"}`} />
+        <div className="flex flex-col w-full md:w-1/2 justify-center items-center">
+          <div className="w-1/2">
+            <div>
+              <div class="m-1 font-black text-4xl sm:text-5xl lg:text-7xl md:text-6xl lg:m-3">
+                <span class="bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-cyan-300">
+                  Signin
+                  as a {isStudent ? "student" : "faculty"}
+                </span>
+              </div>
+              <input type="hidden" name="remember" defaultValue="true" />
               {error && (
                 <div
                   class=" flex justify-center p-4 mb-4 text-sm text-yellow-700 bg-yellow-100 rounded-lg dark:bg-yellow-200 dark:text-yellow-800"
@@ -119,68 +116,45 @@ const Signin = () => {
                   {error}
                 </div>
               )}
-              <div>
+              <div className="m-6">
                 <label htmlFor="email-address" className="sr-only">
                   Email address
                 </label>
                 <input
-                  id="email-address"
                   name="email"
                   value={email}
-                  type="email"
                   onChange={handleInputChange}
                   autoComplete="email"
                   required
-                  className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                  className="appearance-none rounded-lg relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                   placeholder="Email address"
                 />
               </div>
-
-              <div>
+              <div className="m-6">
                 <label htmlFor="password" className="sr-only">
                   Password
                 </label>
                 <input
-                  id="password"
-                  name="password"
                   type="password"
-                  onChange={handleInputChange}
+                  name="password"
                   value={password}
-                  autoComplete="current-password"
+                  onChange={handleInputChange}
                   required
-                  className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-                  placeholder="Password"
+                  className="appearance-none rounded-lg relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                  placeholder="Enter password"
                 />
               </div>
-            </div>
-
-            <div>
               <button
                 type="submit"
                 onSubmit={handleSubmit}
-                className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                className="flex justify-center items-center m-5 rounded-2xl p-2 bg-gradient-to-r from-blue-600 to-sky-300 hover:from-blue-600 hover:to-sky-200"
               >
-                {!state ? (
-                  "Sign in"
-                ) : (
-                  <svg
-                    class="w-6 h-6 mx-auto animate-spin"
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
-                    />
-                  </svg>
-                )}
+                <span className="w-full flex items-center justify-center text-white">
+                  Signin <AiOutlineArrowRight className="ml-2" />
+                </span>
               </button>
             </div>
-          </form>
+          </div>
         </div>
       </div>
     </>
