@@ -45,27 +45,41 @@ export default function SignUp() {
     const [selectedDept, setSelectedDept] = useState(depts[3]);
     const [selectSem, setSelectSem] = useState();
 
-    const { formData: facultyFormData, handleInputChange: handleFacultyInputChange } = useForm({
+    const { formData, handleInputChange } = useForm({
         name: "",
         email: "",
         dNo: "",
         password: "",
         cId: "",
-    });
-
-    const { formData: studentFormData, handleInputChange: handleStudentInputChange } = useForm({
-        name: "",
-        email: "",
         phone: "",
-        password: "",
-        dNo: "",
-        cId: "",
+        sem: ""
     });
 
-    const { name: facultyName, email: facultyEmail, dNo: facultyDNo, password: facultyPassword, cId: facultyCID } = facultyFormData;
+    const { name,
+        email,
+        dNo,
+        password,
+        cId,
+        phone,
+        sem } = formData;
 
+    const StudentData = {
+        name,
+        email,
+        phone,
+        password,
+        dNo,
+        cId,
+        sem
+    };
 
-    const { name: studentName, email: studentEmail, phone: studentPhone, password: studentPassword, dNo: studentDNO, cId: studentCID } = studentFormData;
+    const FacultyData = {
+        fName: name,
+        fEmail: email,
+        dNo,
+        fPassword: password,
+        cId,
+    };
 
     const fetchDepartments = async () => {
         try {
@@ -114,14 +128,7 @@ export default function SignUp() {
                 headers: {
                     "Content-Type": "application/json",
                 },
-                body: JSON.stringify({
-                    name: studentName,
-                    email: studentEmail,
-                    phone: studentPhone,
-                    password: studentPassword,
-                    dNo: studentDNO,
-                    cId: studentCID,
-                }),
+                body: JSON.stringify(StudentData),
             }
         )
             .then((res) => {
@@ -146,13 +153,7 @@ export default function SignUp() {
                 headers: {
                     "Content-Type": "application/json",
                 },
-                body: JSON.stringify({
-                    fName: facultyName,
-                    fEmail: facultyEmail,
-                    dNo: facultyDNo,
-                    fPassword: facultyPassword,
-                    cId: facultyCID,
-                }),
+                body: JSON.stringify(FacultyData),
             }
         )
             .then((res) => {
@@ -177,7 +178,6 @@ export default function SignUp() {
             : await registerFaculty();
     };
 
-    const handleInputChange = isStudent ? handleStudentInputChange : handleFacultyInputChange;
 
     return (
         <>
@@ -200,8 +200,8 @@ export default function SignUp() {
                                             name
                                         </label>
                                         <input
-                                            name={isStudent ? studentName : facultyName}
-                                            value={isStudent ? studentName : facultyName}
+                                            name="name"
+                                            value={name}
                                             type="name"
                                             required
                                             onChange={handleInputChange}
@@ -214,9 +214,9 @@ export default function SignUp() {
                                             Email address
                                         </label>
                                         <input
-                                            name={isStudent ? studentName : facultyName}
+                                            name="email"
                                             type="email"
-                                            value={isStudent ? studentName : facultyName}
+                                            value={email}
                                             onChange={handleInputChange}
                                             autoComplete="email"
                                             required
@@ -230,9 +230,9 @@ export default function SignUp() {
                                                 Phone number
                                             </label>
                                             <input
-                                                name={studentPhone}
+                                                name="phone"
                                                 type="phone"
-                                                value={studentPhone}
+                                                value={phone}
                                                 onChange={handleInputChange}
                                                 required
                                                 className="appearance-none rounded-lg relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
@@ -245,9 +245,9 @@ export default function SignUp() {
                                             Password
                                         </label>
                                         <input
-                                            name={isStudent ? studentPassword : facultyPassword}
+                                            name="password"
                                             type="password"
-                                            value={isStudent ? studentPassword : facultyPassword}
+                                            value={password}
                                             onChange={handleInputChange}
                                             required
                                             className="appearance-none rounded-lg relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
