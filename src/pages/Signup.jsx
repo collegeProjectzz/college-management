@@ -1,4 +1,4 @@
-import React, { useState, Fragment } from 'react';
+import React, { useState, Fragment, useEffect } from 'react';
 import { useNavigate, useParams } from "react-router-dom";
 import { Listbox, Transition } from '@headlessui/react';
 import { CheckIcon, SelectorIcon } from '@heroicons/react/solid';
@@ -8,13 +8,16 @@ import { AiOutlineArrowRight } from 'react-icons/ai';
 import data1 from '../assets/41464-student-with-books.json';
 import RightBanner from '../components/RightBanner';
 
-const depts = [
-    { id: 1, name: "DBMS" },
-    { id: 2, name: "IOT" },
-    { id: 3, name: "JAVA" },
-    { id: 4, name: "SQL" },
-    { id: 5, name: "EACT" },
-    { id: 6, name: "HMM" },
+
+const sem = [
+    { id: 1, sem: 1 },
+    { id: 2, sem: 2 },
+    { id: 3, sem: 3 },
+    { id: 4, sem: 4 },
+    { id: 5, sem: 5 },
+    { id: 6, sem: 6 },
+    { id: 7, sem: 7 },
+    { id: 8, sem: 8 },
 ];
 
 const courses = [
@@ -37,7 +40,10 @@ export default function SignUp() {
     const [next, setNext] = useState(false);
     const [state, setState] = useState(false);
     const [selectCourse, setSelectCourse] = useState(courses[3]);
+    const [depts, setDepts] = useState([]);
+    const [isDeptsLoading, setIsDeptsLoading] = useState(true);
     const [selectedDept, setSelectedDept] = useState(depts[3]);
+    const [selectSem, setSelectSem] = useState();
 
     const { formData: facultyFormData, handleInputChange: handleFacultyInputChange } = useForm({
         name: "",
@@ -58,7 +64,46 @@ export default function SignUp() {
 
     const { name: facultyName, email: facultyEmail, dNo: facultyDNo, password: facultyPassword, cId: facultyCID } = facultyFormData;
 
+
     const { name: studentName, email: studentEmail, phone: studentPhone, password: studentPassword, dNo: studentDNO, cId: studentCID } = studentFormData;
+
+    const fetchDepartments = async () => {
+        try {
+            await fetch("http://localhost/college-backend/api/department/getAllDepartments.php")
+                .then(res => res.json())
+                .then(data => {
+                    setDepts(data.data);
+                    setIsDeptsLoading(false);
+                });
+        } catch (error) {
+            setIsDeptsLoading(false);
+            console.log(error);
+        }
+    };
+
+    useEffect(() => {
+        fetchDepartments();
+    }, []);
+
+    const fetchStudentCourses = async () => {
+        try {
+            await fetch("http://localhost/college-backend/api/course/getSemDeptCourses.php?dNo=1&sem=5")
+                .then(res => res.json())
+                .then(data => console.log(data));
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
+    const fetchFacultyCourses = async () => {
+        try {
+            await fetch("http://localhost/college-backend/api/course/getDeptCourses.php?dNo=1")
+                .then(res => res.json())
+                .then(data => console.log(data));
+        } catch (error) {
+            console.log(error);
+        }
+    };
 
     const registerStudent = async () => {
         setState(true);
@@ -138,7 +183,7 @@ export default function SignUp() {
         <>
             <div className="flex flex-col flex-wrap justify-center items-center md:flex-row">
                 <RightBanner data={data1} text={`You are one step away from signing up as a ${isStudent ? "Student" : "Faculty"}`} />
-                <div className="my-8 flex flex-col w-full md:w-1/2 justify-center items-center sm:my-0">
+                <div className="my-8 flex flex-col w-full md:w-1/2 justify-center items-center sm:my-0 relative">
                     <div className="w-5/6 md:w-3/6">
                         {
                             !next && (
@@ -215,7 +260,10 @@ export default function SignUp() {
                                                 <div className="m-6 relative">
                                                     <Listbox.Button className="relative w-full bg-white border border-gray-300 rounded-md shadow-sm pl-3 pr-10 py-2 text-left cursor-default focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                                                         <span className="flex items-center">
-                                                            <span className="ml-3 block truncate">{selectedDept.id}-{selectedDept.name}</span>
+                                                            {selectedDept ?
+                                                                <span className="ml-3 block truncate">{selectedDept.dNo}-{selectedDept.dName}</span>
+                                                                : "choose department"
+                                                            }
                                                         </span>
                                                         <span className="ml-3 absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
                                                             <SelectorIcon className="h-5 w-5 text-gray-400" aria-hidden="true" />
@@ -230,9 +278,9 @@ export default function SignUp() {
                                                         leaveTo="opacity-0"
                                                     >
                                                         <Listbox.Options className="absolute z-10 mt-1 w-full bg-white shadow-lg max-h-56 rounded-md py-1 text-base ring-1 ring-black ring-opacity-5 overflow-auto focus:outline-none sm:text-sm">
-                                                            {depts.map((d) => (
+                                                            {depts?.map((d) => (
                                                                 <Listbox.Option
-                                                                    key={d.id}
+                                                                    key={d.dNo}
                                                                     className={({ active }) =>
                                                                         classNames(
                                                                             active ? 'text-white bg-indigo-600' : 'text-gray-900',
@@ -247,7 +295,7 @@ export default function SignUp() {
                                                                                 <span
                                                                                     className={classNames(selected ? 'font-semibold' : 'font-normal', 'ml-3 block truncate')}
                                                                                 >
-                                                                                    {d.name}
+                                                                                    {d.dName}
                                                                                 </span>
                                                                             </div>
 
@@ -271,6 +319,72 @@ export default function SignUp() {
                                             </>
                                         )}
                                     </Listbox>
+                                    {isStudent &&
+                                        <Listbox value={selectSem} onChange={setSelectSem}>
+                                            {({ open }) => (
+                                                <>
+                                                    <div className="m-6 relative">
+                                                        <Listbox.Button className="relative w-full bg-white border border-gray-300 rounded-md shadow-sm pl-3 pr-10 py-2 text-left cursor-default focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                                                            <span className="flex items-center">
+                                                                {selectSem ?
+                                                                    <span className="ml-3 block truncate">{selectSem.id}-{selectSem.sem}</span>
+                                                                    : "select semester"
+                                                                }
+                                                            </span>
+                                                            <span className="ml-3 absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
+                                                                <SelectorIcon className="h-5 w-5 text-gray-400" aria-hidden="true" />
+                                                            </span>
+                                                        </Listbox.Button>
+
+                                                        <Transition
+                                                            show={open}
+                                                            as={Fragment}
+                                                            leave="transition ease-in duration-100"
+                                                            leaveFrom="opacity-100"
+                                                            leaveTo="opacity-0"
+                                                        >
+                                                            <Listbox.Options className="absolute z-10 mt-1 w-full bg-white shadow-lg max-h-56 rounded-md py-1 text-base ring-1 ring-black ring-opacity-5 overflow-auto focus:outline-none sm:text-sm">
+                                                                {sem?.map((d) => (
+                                                                    <Listbox.Option
+                                                                        key={d.id}
+                                                                        className={({ active }) =>
+                                                                            classNames(
+                                                                                active ? 'text-white bg-indigo-600' : 'text-gray-900',
+                                                                                'cursor-default select-none relative py-2 pl-3 pr-9'
+                                                                            )
+                                                                        }
+                                                                        value={d}
+                                                                    >
+                                                                        {({ selected, active }) => (
+                                                                            <>
+                                                                                <div className="flex items-center">
+                                                                                    <span
+                                                                                        className={classNames(selected ? 'font-semibold' : 'font-normal', 'ml-3 block truncate')}
+                                                                                    >
+                                                                                        {d.sem}
+                                                                                    </span>
+                                                                                </div>
+
+                                                                                {selected ? (
+                                                                                    <span
+                                                                                        className={classNames(
+                                                                                            active ? 'text-white' : 'text-indigo-600',
+                                                                                            'absolute inset-y-0 right-0 flex items-center pr-4'
+                                                                                        )}
+                                                                                    >
+                                                                                        <CheckIcon className="h-5 w-5" aria-hidden="true" />
+                                                                                    </span>
+                                                                                ) : null}
+                                                                            </>
+                                                                        )}
+                                                                    </Listbox.Option>
+                                                                ))}
+                                                            </Listbox.Options>
+                                                        </Transition>
+                                                    </div>
+                                                </>
+                                            )}
+                                        </Listbox>}
                                     <button className="flex justify-center items-center m-5 rounded-2xl p-2 bg-gradient-to-r from-blue-600 to-sky-300 hover:from-blue-600 hover:to-sky-200"
                                         onClick={() => {
                                             setNext(true);
