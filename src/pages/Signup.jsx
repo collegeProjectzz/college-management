@@ -9,7 +9,7 @@ import data1 from '../assets/41464-student-with-books.json';
 import RightBanner from '../components/RightBanner';
 
 
-const sem = [
+const semesters = [
     { id: 1, sem: 1 },
     { id: 2, sem: 2 },
     { id: 3, sem: 3 },
@@ -39,11 +39,17 @@ export default function SignUp() {
     const navigate = useNavigate();
     const [next, setNext] = useState(false);
     const [state, setState] = useState(false);
-    const [selectCourse, setSelectCourse] = useState(courses[3]);
+
+    const [courses, setCourses] = useState([]);
+    const [selectCourse, setSelectCourse] = useState(courses[2]);
+
     const [depts, setDepts] = useState([]);
     const [isDeptsLoading, setIsDeptsLoading] = useState(true);
     const [selectedDept, setSelectedDept] = useState(depts[3]);
+
     const [selectSem, setSelectSem] = useState();
+
+
 
     const { formData, handleInputChange } = useForm({
         name: "",
@@ -95,15 +101,11 @@ export default function SignUp() {
         }
     };
 
-    useEffect(() => {
-        fetchDepartments();
-    }, []);
-
     const fetchStudentCourses = async () => {
         try {
             await fetch("http://localhost/college-backend/api/course/getSemDeptCourses.php?dNo=1&sem=5")
                 .then(res => res.json())
-                .then(data => console.log(data));
+                .then(data => setCourses(data.data));
         } catch (error) {
             console.log(error);
         }
@@ -113,7 +115,7 @@ export default function SignUp() {
         try {
             await fetch("http://localhost/college-backend/api/course/getDeptCourses.php?dNo=1")
                 .then(res => res.json())
-                .then(data => console.log(data));
+                .then(data => setCourses(data.data));
         } catch (error) {
             console.log(error);
         }
@@ -177,6 +179,11 @@ export default function SignUp() {
             await registerStudent()
             : await registerFaculty();
     };
+
+    useEffect(() => {
+        fetchDepartments();
+        isStudent ? fetchStudentCourses() : fetchFacultyCourses();
+    }, []);
 
 
     return (
@@ -344,7 +351,7 @@ export default function SignUp() {
                                                             leaveTo="opacity-0"
                                                         >
                                                             <Listbox.Options className="absolute z-10 mt-1 w-full bg-white shadow-lg max-h-56 rounded-md py-1 text-base ring-1 ring-black ring-opacity-5 overflow-auto focus:outline-none sm:text-sm">
-                                                                {sem?.map((d) => (
+                                                                {semesters?.map((d) => (
                                                                     <Listbox.Option
                                                                         key={d.id}
                                                                         className={({ active }) =>
@@ -411,7 +418,7 @@ export default function SignUp() {
                                                 <div className="m-6 relative">
                                                     <Listbox.Button className="relative w-full bg-white border border-gray-300 rounded-md shadow-sm pl-3 pr-10 py-2 text-left cursor-default focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                                                         <span className="flex items-center">
-                                                            <span className="ml-3 block truncate">{selectCourse.name}</span>
+                                                            {selectCourse ? <span className="ml-3 block truncate">{selectCourse.cName}</span> : "choose course"}
                                                         </span>
                                                         <span className="ml-3 absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
                                                             <SelectorIcon className="h-5 w-5 text-gray-400" aria-hidden="true" />
@@ -426,16 +433,16 @@ export default function SignUp() {
                                                         leaveTo="opacity-0"
                                                     >
                                                         <Listbox.Options className="absolute z-10 mt-1 w-full bg-white shadow-lg max-h-56 rounded-md py-1 text-base ring-1 ring-black ring-opacity-5 overflow-auto focus:outline-none sm:text-sm">
-                                                            {courses.map((person) => (
+                                                            {courses?.map((c) => (
                                                                 <Listbox.Option
-                                                                    key={person.id}
+                                                                    key={c.cId}
                                                                     className={({ active }) =>
                                                                         classNames(
                                                                             active ? 'text-white bg-indigo-600' : 'text-gray-900',
                                                                             'cursor-default select-none relative py-2 pl-3 pr-9'
                                                                         )
                                                                     }
-                                                                    value={person}
+                                                                    value={c}
                                                                 >
                                                                     {({ selected, active }) => (
                                                                         <>
@@ -443,7 +450,7 @@ export default function SignUp() {
                                                                                 <span
                                                                                     className={classNames(selected ? 'font-semibold' : 'font-normal', 'ml-3 block truncate')}
                                                                                 >
-                                                                                    {person.name}
+                                                                                    {c.cName}
                                                                                 </span>
                                                                             </div>
 
