@@ -145,8 +145,7 @@ const Signin = () => {
                 />
               </div>
               <button
-                type="submit"
-                onSubmit={handleSubmit}
+                onClick={handleSubmit}
                 className="flex justify-center items-center m-5 rounded-2xl p-2 bg-gradient-to-r from-blue-600 to-sky-300 hover:from-blue-600 hover:to-sky-200"
               >
                 <span className="w-full flex items-center justify-center text-white">
