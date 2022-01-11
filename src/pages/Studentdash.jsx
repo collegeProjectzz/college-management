@@ -3,6 +3,8 @@ const Studentdash = () => {
   const [state, setState] = useState();
   const [loading, setLoading] = useState(false);
 
+  console.log("data", state);
+
   const data = sessionStorage.getItem("student");
   const userData = JSON.parse(data);
 
