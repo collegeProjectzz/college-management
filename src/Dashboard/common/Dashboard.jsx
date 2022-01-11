@@ -1,8 +1,8 @@
 import React, { Fragment } from 'react';
 import { Menu, Transition } from '@headlessui/react';
 import { Link, useLocation } from "react-router-dom";
-import StudentSidebar from './Student/StudentSidebar';
-import FacultySidebar from './Faculty/FacultySidebar';
+import StudentSidebar from '../Student/StudentSidebar';
+import FacultySidebar from '../Faculty/FacultySidebar';
 import { FiLogIn } from 'react-icons/fi';
 
 function classNames(...classes) {

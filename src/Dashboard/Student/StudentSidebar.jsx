@@ -11,15 +11,15 @@ export default function StudentSidebar() {
     return (
         <div className="flex flex-col h-full">
             <NavLink to=""
-                className="flex flex-row items-center p-2 m-2 ml-10 hover:bg-blue-800 rounded-md cursor-pointer text-lg font-medium text-slate-300">
+                className="flex flex-row items-center p-2 m-2 ml-5 hover:bg-blue-800 rounded-md cursor-pointer text-lg font-medium text-slate-300">
                 <CgProfile className="mr-2" />
                 Profile
             </NavLink>
-            <NavLink to="overall" className="flex-row text-lg font-medium text-slate-300 flex items-center  p-2 m-2 ml-10 hover:bg-blue-800 rounded-md cursor-pointer">
+            <NavLink to="overall" className="flex-row text-lg font-medium text-slate-300 flex items-center  p-2 m-2 ml-5 hover:bg-blue-800 rounded-md cursor-pointer">
                 <ImStatsDots className="mr-2" />
                 Overall performance
             </NavLink>
-            <div className="text-lg font-medium text-slate-300 flex items-center  p-2 m-2 ml-10 hover:bg-blue-800 rounded-md cursor-pointer">
+            <div className="text-lg font-medium text-slate-300 flex items-center  p-2 m-2 ml-5 hover:bg-blue-800 rounded-md cursor-pointer">
                 <Collapsible trigger={
                     <div className="flex flex-row">
                         <ImStatsBars className="mr-2 " />

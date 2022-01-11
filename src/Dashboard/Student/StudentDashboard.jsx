@@ -1,7 +1,7 @@
 import React from 'react';
-import Dashboard from '../Dashboard';
+import Dashboard from '../common/Dashboard';
 import { Route, Routes } from 'react-router-dom';
-import Profile from '../Profile';
+import Profile from '../common/Profile';
 import Sem from './Sem/Sem';
 import Overall from '../Student/Overall/Overall';
 

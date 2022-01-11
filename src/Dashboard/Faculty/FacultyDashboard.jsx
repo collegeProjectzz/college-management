@@ -1,5 +1,5 @@
 import React from 'react';
-import Dashboard from '../Dashboard';
+import Dashboard from '../common/Dashboard';
 import RestContainer from '../Student/RestContainer';
 
 

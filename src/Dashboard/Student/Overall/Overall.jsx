@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import FourCards from '../../FourCards';
+import FourCards from '../../common/FourCards';
 import BarGraph from '../Overall/BarGraph';
 import LineChart from '../Overall/LineChart';
 import PieChart from '../Overall/PieChart';
