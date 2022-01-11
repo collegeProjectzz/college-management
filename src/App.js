@@ -6,7 +6,6 @@ import Footer from "./components/Footer";
 import Nav from "./components/Nav";
 
 import Teacherdash from "./pages/Teacherdash";
-import Studentdash from "./pages/Studentdash";
 import Signin from "./pages/Signin";
 import Landing from "./pages/Landing";
 import SignUp from "./pages/Signup";
@@ -23,9 +22,8 @@ function App() {
         <Route path="/" element={<Landing />} />
         <Route path="/signin/:who" element={<Signin />} />
         <Route path="/signup/:who" element={<SignUp />} />
-        {/* <Route path="/dashboard/student" element={<Studentdash />} /> */}
-        <Route path="/dashboard/student" element={<StudentDashboard />} />
-        <Route path="/dashboard/faculty" element={<Teacherdash />} />
+        <Route path="/dashboard/student/*" element={<StudentDashboard />} />
+        <Route path="/dashboard/faculty/*" element={<Teacherdash />} />
       </Routes>
       {!dashboard && <Footer />}
     </AuthProvider>

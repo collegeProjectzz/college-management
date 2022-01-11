@@ -1,6 +1,6 @@
 import React from 'react';
 import Dashboard from '../Dashboard';
-import RestContainer from '../RestContainer';
+import RestContainer from '../Student/RestContainer';
 
 
 export default function FacultyDashboard() {
