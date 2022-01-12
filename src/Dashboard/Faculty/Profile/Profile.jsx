@@ -1,8 +1,8 @@
 import React from 'react';
 
 export default function Profile() {
-    const data = sessionStorage.getItem("student");
-    const studentData = JSON.parse(data);
+    const data = sessionStorage.getItem("faculty");
+    const facultyData = data && JSON.parse(data);
 
     return (
         <div className="flex flex-col p-2 w-full m-2 items-center justify-center md:flex-row">
@@ -13,10 +13,10 @@ export default function Profile() {
                     alt=""
                 />
                 <span class="bg-clip-text text-2xl font-semibold text-transparent bg-gradient-to-r from-cyan-600 to-blue-600">
-                    {studentData.name}
+                    {facultyData.fName}
                 </span>
                 <span class="bg-clip-text text-transparent bg-gradient-to-r from-cyan-600 to-blue-600">
-                    {studentData.rollNo}
+                    {facultyData.fId}
                 </span>
 
             </div>
@@ -32,20 +32,20 @@ export default function Profile() {
                         <input
                             type="name"
                             name="name"
-                            value={studentData.name}
+                            value={facultyData.fName}
                             required
                             className="appearance-none rounded-lg relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                             placeholder="name"
                         />
                     </div>
                     <div className="m-6 flex flex-col ">
-                        <label htmlFor="rollNo" className="mr-2">
-                            roll number:
+                        <label htmlFor="fId" className="mr-2">
+                            faculty Id:
                         </label>
                         <input
                             type="number"
-                            name="rollNo"
-                            value={studentData.rollNo}
+                            name="fId"
+                            value={facultyData.fId}
                             required
                             disabled
                             className="appearance-none rounded-lg relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
@@ -59,7 +59,7 @@ export default function Profile() {
                         <input
                             type="email"
                             name="email"
-                            value={studentData.email}
+                            value={facultyData.fEmail}
                             required
                             className="appearance-none rounded-lg relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                             placeholder="email"
@@ -72,34 +72,21 @@ export default function Profile() {
                         <input
                             type="password"
                             name="password"
-                            value={studentData.password}
+                            value={facultyData.fPassword}
                             required
                             className="appearance-none rounded-lg relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                             placeholder="password"
                         />
                     </div>
                     <div className="m-6 flex flex-col ">
-                        <label htmlFor="phone" className="mr-2">
-                            phone:
-                        </label>
-                        <input
-                            type="phone"
-                            name="phone"
-                            value={studentData.phone}
-                            required
-                            className="appearance-none rounded-lg relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-                            placeholder="Enter password"
-                        />
-                    </div>
-                    <div className="m-6 flex flex-col ">
                         <label htmlFor="password" className="mr-2">
-                            semester:
+                            department no:
                         </label>
                         <input
                             type="text"
                             disabled
                             name="sem"
-                            value={studentData.sem}
+                            value={facultyData.dNo}
                             required
                             className="appearance-none rounded-lg relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                             placeholder="Enter password"

@@ -1,14 +1,19 @@
 import { Fragment, useRef, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
-import { ExclamationIcon } from "@heroicons/react/outline";
-import useForm from "../hooks/useForm";
+import useForm from "../../../src/hooks/useForm";
 
-export default function Modalpop({ isOpen, setmode, data }) {
+export default function EditMarks({ openModal, setOpenModal, data }) {
+
+  console.log("data", data);
+
   const { formData, handleInputChange } = useForm({
     first: "",
     second: "",
+    third: "",
+    // total: "",
+    // avg: ""
   });
-  const { first, second } = formData;
+  const { first, second, third } = formData;
   const {
     cId,
     cName,
@@ -17,12 +22,14 @@ export default function Modalpop({ isOpen, setmode, data }) {
     email,
     it1,
     it2,
+    it3,
+    total,
+    avg,
     name,
     password,
     phone,
     rollNo,
   } = data;
-  const [open, setOpen] = useState(true);
   const cancelButtonRef = useRef(null);
 
   const updateItMarks = async () => {
@@ -35,7 +42,10 @@ export default function Modalpop({ isOpen, setmode, data }) {
         rollNo,
         cId,
         it1: first,
-        it2: second
+        it2: second,
+        it3: second,
+        total: second,
+        avg: second
       })
     })
       .then(res => res.json())
@@ -44,12 +54,12 @@ export default function Modalpop({ isOpen, setmode, data }) {
   };
 
   return (
-    <Transition.Root show={open} as={Fragment}>
+    <Transition.Root show={openModal} as={Fragment}>
       <Dialog
         as="div"
         className="fixed z-10 inset-0 overflow-y-auto"
         initialFocus={cancelButtonRef}
-        onClose={setOpen}
+        onClose={setOpenModal}
       >
         <div className="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
           <Transition.Child
@@ -61,7 +71,7 @@ export default function Modalpop({ isOpen, setmode, data }) {
             leaveFrom="opacity-100"
             leaveTo="opacity-0"
           >
-            <Dialog.Overlay className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" />
+            <Dialog.Overlay className="fixed inset-0 backdrop-blur-sm bg-transparent bg-opacity-75 transition-opacity" />
           </Transition.Child>
 
           {/* This element is to trick the browser into centering the modal contents. */}
@@ -91,32 +101,59 @@ export default function Modalpop({ isOpen, setmode, data }) {
                       Student Details
                     </Dialog.Title>
                     <div className="mt-3">
-                      <p className="text-sm text-gray-500 text-base">
+                      <p className=" text-gray-500 text-base">
                         Name:{name}
                       </p>
-                      <p className="text-sm text-gray-500 mt-3 text-base">
+                      <p className=" text-gray-500 mt-3 text-base">
                         Roll_number:{rollNo}
                       </p>
-                      <p className="text-sm text-gray-500 mt-3 text-base">
+                      <p className=" text-gray-500 mt-3 text-base">
                         Email:{email}
                       </p>
-                      <div className="flex mt-3">
+                      <div className="flex flex-col mt-3">
                         <input
                           type="text"
-                          id="first"
-                          name="first"
-                          value={first}
-                          className="focus:outline-none bg-gray-100 rounded-md p-1"
+                          id="it1"
+                          name="it1"
+                          value={it1}
+                          className="p-2 mt-2 focus:outline-none bg-gray-100 rounded-md "
                           placeholder="Enter IT1 marks"
                           onChange={handleInputChange}
                         />
                         <input
                           type="text"
-                          value={second}
-                          id="second"
-                          name="second"
-                          className="focus:outline-none  bg-gray-100 rounded-md p-1 ml-5"
+                          value={it2}
+                          id="it2"
+                          name="it2"
+                          className="p-2 mt-2 focus:outline-none  bg-gray-100 rounded-md "
                           placeholder="Enter IT2 marks"
+                          onChange={handleInputChange}
+                        />
+                        <input
+                          type="text"
+                          value={it3}
+                          id="it3"
+                          name="it3"
+                          className="p-2 mt-2 focus:outline-none  bg-gray-100 rounded-md "
+                          placeholder="Enter IT3 marks"
+                          onChange={handleInputChange}
+                        />
+                        <input
+                          type="text"
+                          value={total}
+                          id="total"
+                          name="total"
+                          className="p-2 mt-2 focus:outline-none  bg-gray-100 rounded-md "
+                          placeholder="Enter IT3 marks"
+                          onChange={handleInputChange}
+                        />
+                        <input
+                          type="text"
+                          value={avg}
+                          id="avg"
+                          name="avg"
+                          className="p-2 mt-2 focus:outline-none  bg-gray-100 rounded-md "
+                          placeholder="Enter IT3 marks"
                           onChange={handleInputChange}
                         />
                       </div>
@@ -130,8 +167,7 @@ export default function Modalpop({ isOpen, setmode, data }) {
                   className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-gray-800 text-base font-medium text-white hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-offset-2  sm:ml-3 sm:w-auto sm:text-sm"
                   onClick={() => {
                     updateItMarks();
-                    setOpen(false);
-                    setmode(false);
+                    setOpenModal(false);
                   }}
                 >
                   Update
@@ -140,8 +176,7 @@ export default function Modalpop({ isOpen, setmode, data }) {
                   type="button"
                   className="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"
                   onClick={() => {
-                    setOpen(false);
-                    setmode(false);
+                    setOpenModal(false);
                   }}
                   ref={cancelButtonRef}
                 >

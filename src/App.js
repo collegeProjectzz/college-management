@@ -5,11 +5,11 @@ import { AuthProvider } from "./context/userContext";
 import Footer from "./components/Footer";
 import Nav from "./components/Nav";
 
-import Teacherdash from "./pages/Teacherdash";
 import Signin from "./pages/Signin";
 import Landing from "./pages/Landing";
 import SignUp from "./pages/Signup";
 import StudentDashboard from "./Dashboard/Student/StudentDashboard";
+import FacultyDashboard from "./Dashboard/Faculty/FacultyDashboard";
 
 function App() {
   let { pathname } = useLocation();
@@ -23,7 +23,7 @@ function App() {
         <Route path="/signin/:who" element={<Signin />} />
         <Route path="/signup/:who" element={<SignUp />} />
         <Route path="/dashboard/student/*" element={<StudentDashboard />} />
-        <Route path="/dashboard/faculty/*" element={<Teacherdash />} />
+        <Route path="/dashboard/faculty/*" element={<FacultyDashboard />} />
       </Routes>
       {!dashboard && <Footer />}
     </AuthProvider>
