@@ -1,24 +1,10 @@
-import { Fragment, useRef, useState } from "react";
+import { Fragment, useRef, useState, useEffect } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import useForm from "../../../src/hooks/useForm";
 
 export default function EditMarks({ openModal, setOpenModal, data }) {
-
-  console.log("data", data);
-
-  const { formData, handleInputChange } = useForm({
-    first: "",
-    second: "",
-    third: "",
-    // total: "",
-    // avg: ""
-  });
-  const { first, second, third } = formData;
   const {
     cId,
-    cName,
-    credit,
-    dNo,
     email,
     it1,
     it2,
@@ -26,11 +12,19 @@ export default function EditMarks({ openModal, setOpenModal, data }) {
     total,
     avg,
     name,
-    password,
-    phone,
     rollNo,
   } = data;
   const cancelButtonRef = useRef(null);
+
+  const { formData, handleInputChange } = useForm({
+    first: it1,
+    second: it2,
+    third: it3,
+    totalMarks: total,
+    avgMrks: avg
+  });
+
+  const { first, second, third, totalMarks, avgMrks } = formData;
 
   const updateItMarks = async () => {
     await fetch("http://localhost/college-backend/api/exam/updateITmarks.php", {
@@ -43,15 +37,18 @@ export default function EditMarks({ openModal, setOpenModal, data }) {
         cId,
         it1: first,
         it2: second,
-        it3: second,
-        total: second,
-        avg: second
+        it3: third,
+        total: computeTotal(first, second, third),
+        avg: computeAvg(first, second, third)
       })
     })
       .then(res => res.json())
       .then(data => console.log(data))
       .catch(err => console.log(err));
   };
+
+  const computeTotal = (first, second, third) => Number(first) + Number(second) + Number(third);
+  const computeAvg = (first, second, third) => computeTotal(first, second, third) / 3;
 
   return (
     <Transition.Root show={openModal} as={Fragment}>
@@ -113,49 +110,37 @@ export default function EditMarks({ openModal, setOpenModal, data }) {
                       <div className="flex flex-col mt-3">
                         <input
                           type="text"
-                          id="it1"
-                          name="it1"
-                          value={it1}
+                          id="first"
+                          name="first"
+                          value={first}
                           className="p-2 mt-2 focus:outline-none bg-gray-100 rounded-md "
                           placeholder="Enter IT1 marks"
                           onChange={handleInputChange}
                         />
                         <input
                           type="text"
-                          value={it2}
-                          id="it2"
-                          name="it2"
+                          value={second}
+                          id="second"
+                          name="second"
                           className="p-2 mt-2 focus:outline-none  bg-gray-100 rounded-md "
                           placeholder="Enter IT2 marks"
                           onChange={handleInputChange}
                         />
                         <input
                           type="text"
-                          value={it3}
-                          id="it3"
-                          name="it3"
+                          value={third}
+                          id="third"
+                          name="third"
                           className="p-2 mt-2 focus:outline-none  bg-gray-100 rounded-md "
                           placeholder="Enter IT3 marks"
                           onChange={handleInputChange}
                         />
-                        <input
-                          type="text"
-                          value={total}
-                          id="total"
-                          name="total"
-                          className="p-2 mt-2 focus:outline-none  bg-gray-100 rounded-md "
-                          placeholder="Enter IT3 marks"
-                          onChange={handleInputChange}
-                        />
-                        <input
-                          type="text"
-                          value={avg}
-                          id="avg"
-                          name="avg"
-                          className="p-2 mt-2 focus:outline-none  bg-gray-100 rounded-md "
-                          placeholder="Enter IT3 marks"
-                          onChange={handleInputChange}
-                        />
+                        <p className=" text-gray-500 mt-3 text-base">
+                          total:{totalMarks}
+                        </p>
+                        <p className=" text-gray-500 mt-3 text-base">
+                          average:{avgMrks}
+                        </p>
                       </div>
                     </div>
                   </div>
