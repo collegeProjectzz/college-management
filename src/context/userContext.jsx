@@ -4,14 +4,13 @@ import { useNavigate } from "react-router-dom";
 const initialState = {
   userData: null,
 };
-const UserContext = createContext();
-// const UserContext = createContext({
-//   userData: null,
-//   login: (userdata, user) => {},
-//   logout: () => {},
-//   user: null,
-//   setUser: (user) => {},
-// });
+const UserContext = createContext({
+  userData: null,
+  login: (userdata, user) => { },
+  logout: () => { },
+  user: null,
+  setUser: (user) => { },
+});
 
 function userReducers(state, action) {
   switch (action.type) {
