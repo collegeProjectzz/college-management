@@ -25,14 +25,14 @@ export default function FacultySidebar() {
     return (
         <div className="flex flex-col h-full">
             <NavLink to=""
-                className="flex flex-row items-center p-2 m-2 ml-5 hover:bg-blue-800 rounded-md cursor-pointer text-lg font-medium text-slate-300">
-                <CgProfile className="mr-2" />
+                className="flex flex-row items-center hover:bg-blue-800 rounded-md cursor-pointer text-base font-medium text-slate-300 lg:text-lg sm:p-3 sm:m-1 sm:ml-1">
+                <CgProfile className="mr-1 sm:mr-2" />
                 Profile
             </NavLink>
-            <div className="text-lg font-medium text-slate-300 flex items-center  p-2 m-2 ml-5 hover:bg-blue-800 rounded-md cursor-pointer">
+            <div className="text-base font-medium text-slate-300 flex items-center hover:bg-blue-800 rounded-md cursor-pointer  lg:text-lg  sm:p-3 sm:m-1 sm:ml-1 ">
                 <Collapsible trigger={
                     <div className="flex flex-row">
-                        <ImStatsBars className="mr-2 " />
+                        <ImStatsBars className="mr-1 sm:mr-2" />
                         Courses
                     </div>
                 } >

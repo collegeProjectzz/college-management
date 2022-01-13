@@ -81,8 +81,8 @@ export default function Courses() {
 
 
     return (
-        <div className="flex h-auto flex-col flex-wrap w-full md:flex-row ">
-            <div className="flex w-4/12 flex-col items-center justify-center">
+        <div className="flex h-auto flex-col flex-wrap w-full sm:flex-row ">
+            <div className="flex w-full flex-col items-center justify-center sm:w-4/12">
                 <div className="flex h-full flex-col my-2 p-6 w-11/12 items-center justify-center bg-white rounded-lg cursor-pointer drop-shadow-xl hover:drop-shadow-2xl">
                     <Menu as="div" className="relative inline-block text-left">
                         <Menu.Button className="inline-flex justify-center w-full rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-indigo-500">
@@ -131,23 +131,23 @@ export default function Courses() {
                     </Menu>
                 </div>
             </div>
-            <div className="flex w-8/12 flex-col items-center justify-center">
+            <div className="flex w-full flex-col items-center justify-center sm:w-8/12">
                 <div className="flex flex-col my-2 p-4 m-3 w-11/12 items-center justify-center bg-white rounded-lg cursor-pointer drop-shadow-xl hover:drop-shadow-2xl">
                     <BarChartGraph {...graphsData} />
                 </div>
             </div>
 
-            <div className="flex w-4/12 flex-col items-center justify-center">
+            <div className="flex w-full flex-col items-center justify-center sm:w-4/12">
                 <div className="flex flex-col my-2 w-11/12 items-center justify-center bg-white rounded-lg cursor-pointer drop-shadow-xl hover:drop-shadow-2xl">
                     <LineChartGraph  {...graphsData} />
                 </div>
             </div>
-            <div className="flex w-4/12 flex-col items-center justify-center">
+            <div className="flex w-full flex-col items-center justify-center sm:w-4/12">
                 <div className="flex flex-col my-2 w-11/12 items-center justify-center bg-white rounded-lg cursor-pointer drop-shadow-xl hover:drop-shadow-2xl">
                     <PieChartGraph {...graphsData} />
                 </div>
             </div>
-            <div className="flex w-4/12 flex-col items-center justify-center">
+            <div className="flex w-full flex-col items-center justify-center sm:w-4/12">
                 <div className="flex flex-col w-11/12 items-center justify-center bg-white rounded-lg cursor-pointer drop-shadow-xl hover:drop-shadow-2xl">
                     <PolarGraph {...graphsData} />
                 </div>

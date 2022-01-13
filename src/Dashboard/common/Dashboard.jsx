@@ -22,9 +22,9 @@ export default function Dashboard({ children, data }) {
     let isStudent = pathname.startsWith("/dashboard/student");
     return (
         <div className="h-full flex flex-col w-full  md:flex-row">
-            <div className="flex h-full fixed top-0 left-0 flex-col w-2/12 bg-blue-700 ">
+            <div className="flex h-full hidden fixed top-0 left-0 flex-col bg-blue-700 md:block w-2/12">
                 <div className="flex h-20 flex-col p-2 text-center">
-                    <div class="m-1 font-black text-1xl sm:text-2xl lg:text-3xl md:text-4xl lg:m-3">
+                    <div class="m-1 font-black text-xs sm:text-base md:text-xl lg:text-2xl lg:m-3">
                         <Link to="/">
                             <span class="bg-clip-text text-transparent bg-gradient-to-r from-cyan-300 to-blue-300">
                                 Classroom
@@ -37,7 +37,7 @@ export default function Dashboard({ children, data }) {
                     logout <FiLogIn className="ml-2" />
                 </div>
             </div>
-            <div className="flex h-full fixed right-0 top-0 drop-shadow-xl flex-col w-10/12 bg-blue-50 overflow-scroll">
+            <div className="flex h-full fixed right-0 top-0 drop-shadow-xl flex-col w-full bg-blue-50 overflow-scroll md:w-10/12">
                 <div className="p-4 flex flex-row w-full mb-3 items-center justify-between md:justify-end">
                     <div className="flex p-2 md:hidden">
                         <div class="m-1 font-black text-1xl sm:text-2xl lg:text-3xl md:text-4xl lg:m-3">
