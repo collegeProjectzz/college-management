@@ -1,15 +1,17 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useContext } from 'react';
 import { Menu, Transition } from '@headlessui/react';
 import { Link, useLocation } from "react-router-dom";
 import StudentSidebar from '../Student/StudentSidebar';
 import FacultySidebar from '../Faculty/FacultySidebar';
 import { FiLogIn } from 'react-icons/fi';
+import { UserContext } from '../../context/userContext';
 
 function classNames(...classes) {
     return classes.filter(Boolean).join(' ');
 }
 
 export default function Dashboard({ children, data }) {
+    const { logout } = useContext(UserContext);
     let { pathname } = useLocation();
     let isStudent = pathname.startsWith("/dashboard/student");
     return (
@@ -102,7 +104,7 @@ export default function Dashboard({ children, data }) {
                                         <Menu.Item>
                                             {({ active }) => (
                                                 <button
-                                                    type="submit"
+                                                    onClick={() => logout()}
                                                     className={classNames(
                                                         active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
                                                         'block w-full text-left px-4 py-2 text-sm'

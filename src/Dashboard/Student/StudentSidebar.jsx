@@ -15,10 +15,6 @@ export default function StudentSidebar() {
                 <CgProfile className="mr-2" />
                 Profile
             </NavLink>
-            <NavLink to="overall" className="flex-row text-lg font-medium text-slate-300 flex items-center  p-2 m-2 ml-5 hover:bg-blue-800 rounded-md cursor-pointer">
-                <ImStatsDots className="mr-2" />
-                Overall performance
-            </NavLink>
             <div className="text-lg font-medium text-slate-300 flex items-center  p-2 m-2 ml-5 hover:bg-blue-800 rounded-md cursor-pointer">
                 <Collapsible trigger={
                     <div className="flex flex-row">
@@ -27,11 +23,14 @@ export default function StudentSidebar() {
                     </div>
                 } >
                     {Array.from({ length: sem }, (value, key, i) => (
-                        <NavLink to={`sem/${key + 1}`}
-                            className="flex items-center  p-2 m-2 ml-8 hover:bg-blue-900 rounded-md cursor-pointer"
-                        >
-                            Sem {key + 1}
-                        </NavLink>
+                        <div className="text-lg font-medium text-slate-300 flex items-center  p-2 m-2 ml-5 hover:bg-blue-900 rounded-md cursor-pointer">
+                            <Collapsible trigger={`sem ${key + 1}`} className="flex flex-row">
+                                <div className="flex flex-col p-2 ml-4">
+                                    <Link className="p-2" to={`sem/${key + 1}/overall`}>Overall</Link>
+                                    <Link className="p-2" to={`sem/${key + 1}/courses`}>Courses</Link>
+                                </div>
+                            </Collapsible>
+                        </div>
                     ))}
                 </Collapsible>
             </div>
