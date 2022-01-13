@@ -1,8 +1,57 @@
 import React from 'react';
+import useForm from '../../../hooks/useForm';
+import { FaSignInAlt } from 'react-icons/fa';
 
 export default function Profile() {
     const data = sessionStorage.getItem("student");
     const studentData = data && JSON.parse(data);
+
+    const {
+        dNo,
+        email,
+        name,
+        password,
+        phone,
+        rollNo,
+        sem
+    } = studentData;
+
+    const { formData, handleInputChange } = useForm({
+        Studentemail: email,
+        Studentname: name,
+        Studentpassword: password,
+        Studentphone: phone,
+        Studentsem: sem
+    });
+
+    const {
+        Studentemail,
+        Studentname,
+        Studentpassword,
+        Studentphone,
+        Studentsem
+    } = formData;
+
+
+    const handleSubmit = () => {
+        fetch('http://localhost/college-backend/api/student/editStudent.php', {
+            method: "PUT",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                name: Studentname,
+                email: Studentemail,
+                phone: Studentphone,
+                password: Studentpassword,
+                dNo,
+                rollNo
+            })
+        })
+            .then(res => res.json())
+            .then(data => console.log(data))
+            .catch(err => console.log(err));
+    };
 
     return (
         <div className="flex flex-col p-2 w-full m-2 items-center justify-center md:flex-row">
@@ -30,9 +79,10 @@ export default function Profile() {
                             name:
                         </label>
                         <input
-                            type="name"
-                            name="name"
-                            value={studentData.name}
+                            type="text"
+                            name="Studentname"
+                            value={Studentname}
+                            onChange={handleInputChange}
                             required
                             className="appearance-none rounded-lg relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                             placeholder="name"
@@ -58,8 +108,9 @@ export default function Profile() {
                         </label>
                         <input
                             type="email"
-                            name="email"
-                            value={studentData.email}
+                            name="Studentemail"
+                            onChange={handleInputChange}
+                            value={Studentemail}
                             required
                             className="appearance-none rounded-lg relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                             placeholder="email"
@@ -71,8 +122,9 @@ export default function Profile() {
                         </label>
                         <input
                             type="password"
-                            name="password"
-                            value={studentData.password}
+                            name="Studentpassword"
+                            value={Studentpassword}
+                            onChange={handleInputChange}
                             required
                             className="appearance-none rounded-lg relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                             placeholder="password"
@@ -84,8 +136,9 @@ export default function Profile() {
                         </label>
                         <input
                             type="phone"
-                            name="phone"
-                            value={studentData.phone}
+                            name="Studentphone"
+                            value={Studentphone}
+                            onChange={handleInputChange}
                             required
                             className="appearance-none rounded-lg relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                             placeholder="Enter password"
@@ -98,12 +151,23 @@ export default function Profile() {
                         <input
                             type="text"
                             disabled
-                            name="sem"
-                            value={studentData.sem}
+                            name="Studentsem"
+                            disabled
+                            value={Studentsem}
                             required
                             className="appearance-none rounded-lg relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                             placeholder="Enter password"
                         />
+                    </div>
+                    <div className="flex justify-center items-center">
+                        <button
+                            onClick={handleSubmit}
+                            className="flex justify-center items-center m-5 rounded-full p-3 bg-gradient-to-r from-blue-600 to-sky-300 hover:from-blue-600 hover:to-sky-200"
+                        >
+                            <span className="flex items-center justify-center text-white">
+                                Update <FaSignInAlt className="ml-2" />
+                            </span>
+                        </button>
                     </div>
 
                 </div>
