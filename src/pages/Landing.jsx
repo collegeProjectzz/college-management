@@ -1,15 +1,21 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Lottie from 'react-lottie';
 import { AiOutlineArrowRight } from 'react-icons/ai';
 import { Link as SLink } from "react-scroll";
 import Fade from 'react-reveal/Fade';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import data1 from '../assets/73479-student.json';
 import data2 from '../assets/30304-back-to-school.json';
 import data3 from '../assets/30305-back-to-school.json';
 
 export default function Landing() {
+    const navigate = useNavigate();
+    useEffect(() => {
+        const who = sessionStorage.getItem("user");
+        const userData = who && sessionStorage.getItem(who);
+        userData && navigate(`/dashboard/${who}`);
+    }, []);
     const defaultOptions1 = {
         loop: true,
         autoplay: true,

@@ -1,15 +1,21 @@
-import { createContext, useReducer, useState } from "react";
+import { createContext, useReducer, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
+const who = sessionStorage.getItem("user");
+const user = who ? sessionStorage.getItem(who) : null;
+
+console.log("user", user);
+
 const initialState = {
-  userData: null,
+  userData: user,
+  user: who ? who : null
 };
+
 const UserContext = createContext({
   userData: null,
   login: (userdata, user) => { },
   logout: () => { },
   user: null,
-  setUser: (user) => { },
 });
 
 function userReducers(state, action) {
@@ -23,6 +29,7 @@ function userReducers(state, action) {
       return {
         ...state,
         userData: null,
+        user: null,
       };
     default:
       return state;
@@ -46,13 +53,9 @@ function AuthProvider(props) {
   }
 
   function logout() {
-    console.log("logout init");
-    console.log("user", user);
-    setUser(null);
-    sessionStorage.removeItem(user);
     sessionStorage.removeItem("user");
+    sessionStorage.removeItem(user);
     dispatch({ type: "LOGOUT" });
-    console.log("logout exit");
     navigate("/");
   }
 
@@ -63,7 +66,6 @@ function AuthProvider(props) {
         login,
         logout,
         user,
-        setUser,
         dispatch,
       }}
       {...props}
