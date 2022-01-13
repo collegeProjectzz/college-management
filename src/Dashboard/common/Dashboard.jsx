@@ -4,13 +4,19 @@ import { Link, useLocation } from "react-router-dom";
 import StudentSidebar from '../Student/StudentSidebar';
 import FacultySidebar from '../Faculty/FacultySidebar';
 import { FiLogIn } from 'react-icons/fi';
+import Collapsible from 'react-collapsible';
 import { UserContext } from '../../context/userContext';
+import { CgProfile } from 'react-icons/cg';
+import { ImStatsDots, ImStatsBars } from 'react-icons/im';
 
 function classNames(...classes) {
     return classes.filter(Boolean).join(' ');
 }
 
 export default function Dashboard({ children, data }) {
+    const sdata = sessionStorage.getItem("student");
+    const studentData = sdata && JSON.parse(sdata);
+    const sem = studentData?.sem;
     const { logout } = useContext(UserContext);
     let { pathname } = useLocation();
     let isStudent = pathname.startsWith("/dashboard/student");
@@ -74,32 +80,22 @@ export default function Dashboard({ children, data }) {
                                             </a>
                                         )}
                                     </Menu.Item>
-                                    <Menu.Item>
-                                        {({ active }) => (
-                                            <a
-                                                href="#"
-                                                className={classNames(
-                                                    active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-                                                    'block px-4 py-2 text-sm'
-                                                )}
-                                            >
-                                                Overall performance
-                                            </a>
-                                        )}
-                                    </Menu.Item>
-                                    <Menu.Item>
-                                        {({ active }) => (
-                                            <a
-                                                href="#"
-                                                className={classNames(
-                                                    active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-                                                    'block px-4 py-2 text-sm'
-                                                )}
-                                            >
-                                                sem wise performance
-                                            </a>
-                                        )}
-                                    </Menu.Item>
+                                    <Collapsible trigger={
+                                        <div className="text-gray-700 block px-4 py-2 text-sm hover:bg-gray-100">
+                                            Sem wise performance
+                                        </div>
+                                    } >
+                                        {Array.from({ length: sem }, (value, key, i) => (
+                                            <div className="text-gray-700 block px-4 py-1 text-sm hover:bg-gray-100 ml-4">
+                                                <Collapsible trigger={`sem ${key + 1}`} className="flex flex-row">
+                                                    <div className="flex flex-col p-1 ml-2">
+                                                        <Link className="p-1" to={`sem/${key + 1}/overall`}>Overall</Link>
+                                                        <Link className="p-1" to={`sem/${key + 1}/courses`}>Courses</Link>
+                                                    </div>
+                                                </Collapsible>
+                                            </div>
+                                        ))}
+                                    </Collapsible>
                                     <form method="POST" action="#">
                                         <Menu.Item>
                                             {({ active }) => (
@@ -124,6 +120,6 @@ export default function Dashboard({ children, data }) {
                     {children}
                 </div>
             </div>
-        </div>
+        </div >
     );
 }
